@@ -6,8 +6,8 @@
 
 ## Технологический стек
 
-* Backend: NestJS + TypeScript;
-* Frontend: SvetleKit + TypeScript;
-* Database: MongoDB;
-* Real-time: Socket.io/WebSocket.
+* **Backend:** NestJS + TypeScript;
+* **Frontend:** SvelteKit + TypeScript;
+* **Database:** MongoDB;
+* **Real-time:** Socket.io/WebSocket.
 
