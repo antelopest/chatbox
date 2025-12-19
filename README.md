@@ -10,4 +10,3 @@
 * **Frontend:** SvelteKit + TypeScript;
 * **Database:** MongoDB;
 * **Real-time:** Socket.io/WebSocket.
-
