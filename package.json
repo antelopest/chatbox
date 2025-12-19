@@ -5,6 +5,5 @@
   "description": "Real-time Chat Application",
   "keywords": [],
   "author": "Simon Belenko",
-  "license": "ISC",
-  "packageManager": "pnpm@10.20.0"
+  "license": "ISC"
 }
