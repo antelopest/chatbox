@@ -24,7 +24,7 @@ Real-time chat application.
 
 ## Настройки Visual Studio Code
 
-### settings.json
+`settings.json`
 
 ```
 {
