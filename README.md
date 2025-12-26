@@ -2,9 +2,10 @@
 
 Web Application
 
-## VSCode
 
-> .vscode/settings.json
+## Настройки VSCode
+
+### settings.json
 
 ```
 {
