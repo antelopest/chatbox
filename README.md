@@ -2,8 +2,14 @@
 
 Web Application
 
+## Scripts
 
-## Настройки VSCode
+- pnpm lint
+- pnpm lint:fix
+- pnpm format
+- pnpm format:fix
+
+## Настройки Visual Studio Code
 
 ### settings.json
 
