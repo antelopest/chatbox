@@ -1,9 +1,0 @@
-{
-  "name": "chatbox",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Real-time Chat Application",
-  "keywords": [],
-  "author": "Simon Belenko",
-  "license": "ISC"
-}

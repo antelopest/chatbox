@@ -1,6 +1,0 @@
-packages:
-  - "web"
-  - "api"
-  - "shared"
-onlyBuiltDependencies:
-  - esbuild
