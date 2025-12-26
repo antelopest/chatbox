@@ -1,6 +1,19 @@
 # Chatbox
 
-Web Application
+Real-time chat application.
+
+## Stack
+
+- **Frontend**: SvelteKit
+- **Backend**: NestJS
+- **Monorepo**: pnpm
+
+## Structure
+
+- `apps/web` - SvelteKit frontend
+- `apps/api` - NestJS backend
+- `packages/ui` - Shared Svelte components
+- `packages/shared` - Types, Utilities, Validators
 
 ## Scripts
 
