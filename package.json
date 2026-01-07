@@ -6,7 +6,12 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --check",
-    "format:fix": "prettier . --write"
+    "format:fix": "prettier . --write",
+    "db:up": "docker compose up -d mongo",
+    "db:down": "docker compose down",
+    "api:dev": "pnpm -F api start:dev",
+    "web:dev": "pnpm -F web dev",
+    "dev": "pnpm db:up && concurrently -k -n API,WEB \"pnpm api:dev\" \"pnpm web:dev\""
   },
   "author": "Simon Belenko",
   "packageManager": "pnpm@10.20.0",
@@ -14,6 +19,7 @@
     "@nestjs/cli": "^11.0.14",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
     "@typescript-eslint/parser": "^8.50.1",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",

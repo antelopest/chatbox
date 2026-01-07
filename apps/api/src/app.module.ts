@@ -1,10 +1,31 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { CatsController } from './app.controller';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env'],
+    }),
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        const host = config.get<string>('MONGO_HOST', 'localhost');
+        const port = config.get<string>('MONGO_PORT', '27017');
+        const db = config.get<string>('MONGO_DB', 'chatbox');
+        const user = config.get<string>('MONGO_USER', 'root');
+        const pass = config.get<string>('MONGO_PASS', 'rootpass');
+        const uri = `mongodb://${encodeURIComponent(user)}:${encodeURIComponent(
+          pass,
+        )}@${host}:${port}/${db}?authSource=admin`;
+
+        return { uri };
+      },
+    }),
+  ],
+  controllers: [CatsController],
+  providers: [],
 })
 export class AppModule {}
