@@ -10,3 +10,6 @@ dist
 
 apps/api/env/.env*
 !apps/api/env/.env.example
+
+apps/web/env/.env*
+!apps/web/env/.env.example
