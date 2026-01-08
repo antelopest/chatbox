@@ -1,5 +1,6 @@
 .vscode
 .idea
+.DS_Store
 
 node_modules
 dist
@@ -7,4 +8,5 @@ dist
 .env
 .env.*
 
-.DS_Store
+apps/api/env/.env*
+!apps/api/env/.env.example
