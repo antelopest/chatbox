@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CatsController } from './app.controller';
 
 @Module({
   imports: [
@@ -25,7 +24,7 @@ import { CatsController } from './app.controller';
       },
     }),
   ],
-  controllers: [CatsController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
