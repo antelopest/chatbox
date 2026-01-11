@@ -1,0 +1,9 @@
+import { registerAs } from '@nestjs/config';
+
+export const jwtConfig = registerAs('jwt', () => ({
+  accessSecret: process.env.JWT_ACCESS_SECRET,
+  accessTtl: process.env.JWT_ACCESS_TTL,
+
+  refreshSecret: process.env.JWT_REFRESH_SECRET,
+  refreshTtl: process.env.JWT_REFRESH_TTL,
+}));
