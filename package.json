@@ -9,9 +9,14 @@
     "format:fix": "prettier . --write",
     "db:up": "docker compose up -d mongo",
     "db:down": "docker compose down",
-    "api:dev": "pnpm -F api start:dev",
-    "web:dev": "pnpm -F web dev",
-    "dev": "pnpm db:up && concurrently -k -n API,WEB \"pnpm api:dev\" \"pnpm web:dev\""
+    "dev": "pnpm db:up && concurrently -k -n API,WEB \"pnpm dev:api\" \"pnpm dev:web\"",
+    "dev:api": "pnpm -F api start:dev",
+    "dev:web": "pnpm -F web dev",
+    "build": "",
+    "deploy": "",
+    "prod": "",
+    "prod:api": "",
+    "prod:web": ""
   },
   "author": "Simon Belenko",
   "packageManager": "pnpm@10.28.0",
