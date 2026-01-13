@@ -1,9 +1,44 @@
-import { registerAs } from '@nestjs/config';
+import { Logger } from '@nestjs/common';
+import { registerAs, ConfigType } from '@nestjs/config';
+import * as z from 'zod';
 
-export const authConfig = registerAs('auth', () => ({
-  accessSecret: process.env.AUTH_JWT_ACCESS_SECRET,
-  accessTtl: process.env.AUTH_JWT_ACCESS_TTL,
+const logger = new Logger('AuthConfig');
 
-  refreshSecret: process.env.AUTH_JWT_REFRESH_SECRET,
-  refreshTtl: process.env.AUTH_JWT_REFRESH_TTL,
-}));
+export const AUTH_CONFIG_NAMESPACE = 'auth';
+
+const DEFAULT_ACCESS_TTL = '1d';
+const DEFAULT_REFRESH_TTL = '7d';
+
+const ttlSchema = z
+  .string()
+  .regex(/^\d+[smhd]$/, 'TTL must be in format: 15m | 1h | 1d | 7d');
+
+const authSchema = z.object({
+  AUTH_JWT_ACCESS_SECRET: z
+    .string()
+    .min(32, 'AUTH_JWT_ACCESS_SECRET must be at least 32 characters'),
+  AUTH_JWT_ACCESS_TTL: ttlSchema.default(DEFAULT_ACCESS_TTL),
+  AUTH_JWT_REFRESH_SECRET: z
+    .string()
+    .min(32, 'AUTH_JWT_REFRESH_SECRET must be at least 32 characters'),
+  AUTH_JWT_REFRESH_TTL: ttlSchema.default(DEFAULT_REFRESH_TTL),
+});
+
+export const authConfig = registerAs(AUTH_CONFIG_NAMESPACE, () => {
+  const parsed = authSchema.parse(process.env);
+
+  logger.log('Auth config loaded.');
+
+  return {
+    access: {
+      secret: parsed.AUTH_JWT_ACCESS_SECRET,
+      ttl: parsed.AUTH_JWT_ACCESS_TTL,
+    },
+    refresh: {
+      secret: parsed.AUTH_JWT_REFRESH_SECRET,
+      ttl: parsed.AUTH_JWT_REFRESH_TTL,
+    },
+  };
+});
+
+export type AuthConfig = ConfigType<typeof authConfig>;

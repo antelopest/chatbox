@@ -33,7 +33,7 @@ const envSchema = z.object({
 export const envConfig = registerAs(ENV_CONFIG_NAMESPACE, () => {
   const parsed = envSchema.parse(process.env);
 
-  logger.log(`Environment config loaded: ${parsed.NODE_ENV}, ${parsed.PORT}`);
+  logger.log(`Environment config loaded.`);
 
   return {
     env: parsed.NODE_ENV,
