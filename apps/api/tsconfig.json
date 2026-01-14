@@ -27,7 +27,7 @@
       "@auth/*": ["src/modules/auth/*"],
       "@users/*": ["src/modules/users/*"],
       "@config/*": ["src/config/*"],
-      "@database/*": ["src/database/*"]
+      "@infrastructure/*": ["src/infrastructure/*"]
     }
   }
 }

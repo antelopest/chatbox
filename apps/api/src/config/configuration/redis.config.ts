@@ -1,0 +1,33 @@
+import { Logger } from '@nestjs/common';
+import { registerAs, ConfigType } from '@nestjs/config';
+import * as z from 'zod';
+
+const logger = new Logger('RedisConfig');
+
+export const REDIS_CONFIG_NAMESPACE = 'redis';
+
+const DEFAULT_REDIS_HOST = 'localhost';
+const DEFAULT_REDIS_PORT = 6379;
+
+const redisSchema = z.object({
+  REDIS_HOST: z.string().min(1).default(DEFAULT_REDIS_HOST),
+  REDIS_PORT: z
+    .string()
+    .regex(/^\d+$/, 'Must be a number')
+    .transform(Number)
+    .pipe(z.number().int().min(1).max(65535))
+    .default(DEFAULT_REDIS_PORT),
+});
+
+export const redisConfig = registerAs(REDIS_CONFIG_NAMESPACE, () => {
+  const parsed = redisSchema.parse(process.env);
+
+  logger.log(`Redis config loaded.`);
+
+  return {
+    host: parsed.REDIS_HOST,
+    port: parsed.REDIS_PORT,
+  };
+});
+
+export type RedisConfig = ConfigType<typeof redisConfig>;
