@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { Profile, ProfileSchema } from '@users/schemas';
+
+import { Profile } from '@users/schemas/profile.schema';
 
 @Schema({ timestamps: true })
 export class User {
@@ -16,7 +17,7 @@ export class User {
   @Prop({ default: true })
   isActive: boolean;
 
-  @Prop({ type: ProfileSchema, required: true })
+  @Prop({ type: Profile, required: true })
   profile: Profile;
 }
 
