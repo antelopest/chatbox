@@ -18,7 +18,7 @@ export const createRedisClient = (config: RedisConfig) => {
   });
 
   client.on('ready', () => {
-    logger.log(`Redis ready at ${config.host}:${config.port}`);
+    logger.log(`Redis is ready`);
   });
 
   client.on('error', (error) => {

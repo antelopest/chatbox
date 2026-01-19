@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { RedisConfig, redisConfig } from '@config/configuration';
 
 import { createRedisClient } from './redis.client';
@@ -7,7 +6,7 @@ import { createRedisClient } from './redis.client';
 export const REDIS_CLIENT = Symbol('REDIS_CLIENT');
 
 @Module({
-  imports: [ConfigModule.forFeature(redisConfig)],
+  imports: [],
   providers: [
     {
       provide: REDIS_CLIENT,

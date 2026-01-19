@@ -4,7 +4,7 @@ import * as z from 'zod';
 
 import { Configuration } from '@config/configuration';
 
-const logger = new Logger('EnvConfig');
+const logger = new Logger('EnvironmentConfig');
 
 export enum Environment {
   Development = 'development',
@@ -33,7 +33,7 @@ const envSchema = z.object({
 export const envConfig = registerAs(Configuration.ENVIRONMENT, () => {
   const parsed = envSchema.parse(process.env);
 
-  logger.log(`Environment config loaded.`);
+  logger.log(`${Configuration.ENVIRONMENT} config loaded.`);
 
   return {
     env: parsed.NODE_ENV,

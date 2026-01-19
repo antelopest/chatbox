@@ -27,7 +27,7 @@ const authSchema = z.object({
 export const authConfig = registerAs(Configuration.AUTH, () => {
   const parsed = authSchema.parse(process.env);
 
-  logger.log('Auth config loaded.');
+  logger.log(`${Configuration.AUTH} config loaded.`);
 
   return {
     access: {

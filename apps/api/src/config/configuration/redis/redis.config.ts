@@ -22,7 +22,7 @@ const redisSchema = z.object({
 export const redisConfig = registerAs(Configuration.REDIS, () => {
   const parsed = redisSchema.parse(process.env);
 
-  logger.log(`Redis config loaded.`);
+  logger.log(`${Configuration.REDIS} config loaded.`);
 
   return {
     host: parsed.REDIS_HOST,

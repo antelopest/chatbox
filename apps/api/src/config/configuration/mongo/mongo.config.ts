@@ -55,7 +55,7 @@ export const mongoConfig = registerAs(Configuration.MONGO, () => {
 
   const uri = `mongodb://${auth}${parsed.MONGO_HOST}:${parsed.MONGO_PORT}`;
 
-  logger.log(`Mongo config loaded.`);
+  logger.log(`${Configuration.MONGO} config loaded.`);
 
   return {
     uri,
