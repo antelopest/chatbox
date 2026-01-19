@@ -11,9 +11,10 @@ export const RegisterSchema = z
     password: passwordSchema,
     confirmPassword: passwordSchema,
   })
+  .strict()
   .refine(passwordsMatch, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
 
-export type RegisterDto = z.infer<typeof RegisterSchema>;
+export type RegisterInput = z.infer<typeof RegisterSchema>;

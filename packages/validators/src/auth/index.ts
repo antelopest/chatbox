@@ -1,7 +1,4 @@
-import { LoginSchema } from './schemas/login.schema';
-import { RegisterSchema } from './schemas/register.schema';
+export * from './primitives';
 
-export const AuthSchema = {
-  Login: LoginSchema,
-  Register: RegisterSchema,
-} as const;
+export * from './schemas/login.schema';
+export * from './schemas/register.schema';
