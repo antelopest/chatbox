@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { Changelog, ChangelogDocument } from '@changelog/schemas';
-import { MONGO_NAME_CONNECTION } from '@infrastructure/mongo';
+import { MongoConnection } from '@infrastructure/mongo';
 
 @Injectable()
 export class ChangelogRepository {
   constructor(
-    @InjectModel(Changelog.name, MONGO_NAME_CONNECTION)
+    @InjectModel(Changelog.name, MongoConnection.MAIN)
     private readonly model: Model<ChangelogDocument>,
   ) {}
 

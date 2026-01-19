@@ -4,13 +4,13 @@ import { MongooseHealthIndicator } from '@nestjs/terminus';
 import { Connection } from 'mongoose';
 
 import { up, down } from '@infrastructure/health/utils';
-import { MONGO_NAME_CONNECTION } from '@infrastructure/mongo';
+import { MongoConnection } from '@infrastructure/mongo';
 
 @Injectable()
 export class MongoHealthIndicator {
   constructor(
     private readonly mongoose: MongooseHealthIndicator,
-    @InjectConnection(MONGO_NAME_CONNECTION)
+    @InjectConnection(MongoConnection.MAIN)
     private readonly connection: Connection,
   ) {}
 

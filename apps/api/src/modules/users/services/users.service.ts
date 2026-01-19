@@ -1,39 +1,37 @@
-import { MONGO_NAME_CONNECTION } from '@infrastructure/mongo';
 import { ConflictException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '@users/schemas';
-import { Model } from 'mongoose';
+
+import { UsersRepository } from '@users/repositories';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(User.name, MONGO_NAME_CONNECTION)
-    private readonly userModel: Model<UserDocument>,
-  ) {}
-
-  async findByEmail(email: string): Promise<UserDocument | null> {
-    return this.userModel.findOne({ email }).exec();
-  }
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async create(
     email: string,
     username: string,
     displayName: string,
     passwordHash: string,
-  ): Promise<UserDocument | null> {
-    const exits = await this.findByEmail(email);
+  ) {
+    const emailExists = await this.usersRepository.findByEmail(email);
 
-    if (exits) {
-      throw new ConflictException('User already exists');
+    if (emailExists) {
+      throw new ConflictException(`Email ${email} already exists`);
     }
 
-    return this.userModel.create({
-      email,
+    const usernameExists = await this.usersRepository.findByUsername(username);
+
+    if (usernameExists) {
+      throw new ConflictException(`Username ${username} already exists`);
+    }
+
+    return this.usersRepository.create({
+      email: email,
+      username: username,
       passwordHash,
-      username,
       profile: {
         displayName,
       },
+      isActive: false,
     });
   }
 }
