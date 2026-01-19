@@ -2,9 +2,9 @@ import { Logger } from '@nestjs/common';
 import { ConfigType, registerAs } from '@nestjs/config';
 import * as z from 'zod';
 
-const logger = new Logger('EnvConfig');
+import { Configuration } from '@config/configuration';
 
-export const ENV_CONFIG_NAMESPACE = 'env';
+const logger = new Logger('EnvConfig');
 
 export enum Environment {
   Development = 'development',
@@ -30,7 +30,7 @@ const envSchema = z.object({
   APP_NAME: z.string().default(DEFAULT_APP_NAME),
 });
 
-export const envConfig = registerAs(ENV_CONFIG_NAMESPACE, () => {
+export const envConfig = registerAs(Configuration.ENVIRONMENT, () => {
   const parsed = envSchema.parse(process.env);
 
   logger.log(`Environment config loaded.`);

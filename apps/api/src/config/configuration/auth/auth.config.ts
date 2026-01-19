@@ -2,9 +2,9 @@ import { Logger } from '@nestjs/common';
 import { registerAs, ConfigType } from '@nestjs/config';
 import * as z from 'zod';
 
-const logger = new Logger('AuthConfig');
+import { Configuration } from '@config/configuration';
 
-export const AUTH_CONFIG_NAMESPACE = 'auth';
+const logger = new Logger('AuthConfig');
 
 const DEFAULT_ACCESS_TTL = '1d';
 const DEFAULT_REFRESH_TTL = '7d';
@@ -24,7 +24,7 @@ const authSchema = z.object({
   AUTH_JWT_REFRESH_TTL: ttlSchema.default(DEFAULT_REFRESH_TTL),
 });
 
-export const authConfig = registerAs(AUTH_CONFIG_NAMESPACE, () => {
+export const authConfig = registerAs(Configuration.AUTH, () => {
   const parsed = authSchema.parse(process.env);
 
   logger.log('Auth config loaded.');

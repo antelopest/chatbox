@@ -2,9 +2,9 @@ import { Logger } from '@nestjs/common';
 import { registerAs, ConfigType } from '@nestjs/config';
 import * as z from 'zod';
 
-const logger = new Logger('RedisConfig');
+import { Configuration } from '@config/configuration';
 
-export const REDIS_CONFIG_NAMESPACE = 'redis';
+const logger = new Logger('RedisConfig');
 
 const DEFAULT_REDIS_HOST = 'localhost';
 const DEFAULT_REDIS_PORT = 6379;
@@ -19,7 +19,7 @@ const redisSchema = z.object({
     .default(DEFAULT_REDIS_PORT),
 });
 
-export const redisConfig = registerAs(REDIS_CONFIG_NAMESPACE, () => {
+export const redisConfig = registerAs(Configuration.REDIS, () => {
   const parsed = redisSchema.parse(process.env);
 
   logger.log(`Redis config loaded.`);

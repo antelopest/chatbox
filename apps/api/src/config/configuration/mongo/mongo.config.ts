@@ -2,9 +2,9 @@ import { Logger } from '@nestjs/common';
 import { registerAs, ConfigType } from '@nestjs/config';
 import * as z from 'zod';
 
-const logger = new Logger('MongoConfig');
+import { Configuration } from '@config/configuration';
 
-export const MONGO_CONFIG_NAMESPACE = 'mongo';
+const logger = new Logger('MongoConfig');
 
 const DEFAULT_MONGO_PORT = 27017;
 const DEFAULT_MONGO_DEBUG = false;
@@ -45,7 +45,7 @@ const mongoSchema = z.object({
   ),
 });
 
-export const mongoConfig = registerAs(MONGO_CONFIG_NAMESPACE, () => {
+export const mongoConfig = registerAs(Configuration.MONGO, () => {
   const parsed = mongoSchema.parse(process.env);
 
   const auth: string =
