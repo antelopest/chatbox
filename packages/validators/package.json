@@ -1,5 +1,5 @@
 {
-  "name": "@chatbox/shared-validators",
+  "name": "@packages/validators",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -7,6 +7,12 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "dependencies": {
     "zod": "^4.2.1"
