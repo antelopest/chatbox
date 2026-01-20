@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const passwordSchema = z
+export const PasswordSchema = z
   .string()
   .min(8, 'Password must be at least 8 characters')
   .max(128, 'Password is too long')

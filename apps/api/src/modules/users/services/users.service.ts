@@ -6,6 +6,10 @@ import { UsersRepository } from '@users/repositories';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
+  async findByEmail(email: string) {
+    return this.usersRepository.findByEmail(email);
+  }
+
   async create(
     email: string,
     username: string,
