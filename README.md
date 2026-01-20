@@ -13,7 +13,8 @@ Real-time chat application.
 - `apps/web` - SvelteKit frontend
 - `apps/api` - NestJS backend
 - `packages/ui` - Shared Svelte components
-- `packages/shared` - Types, Utilities, Validators
+- `packages/validators` - Validators Schemes
+- `packages/contracts` - Contracts
 
 ## Scripts
 
