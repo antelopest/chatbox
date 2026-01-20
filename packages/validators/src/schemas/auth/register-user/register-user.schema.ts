@@ -3,7 +3,7 @@ import * as z from 'zod';
 import { EmailSchema, PasswordSchema } from '../../../constraints';
 import { passwordsMatchRule } from '../../../rules';
 
-export const RegisterSchema = z
+export const RegisterUserSchema = z
   .object({
     email: EmailSchema,
     password: PasswordSchema,
