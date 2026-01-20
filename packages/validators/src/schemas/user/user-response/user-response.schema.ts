@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import { UserProfileSchema } from './user-profile-response.schema';
+import { UserProfileSchema } from '../user-profile-response/user-profile-response.schema';
 import { EmailSchema } from '../../../constraints';
 
 export const UserResponseSchema = z.object({

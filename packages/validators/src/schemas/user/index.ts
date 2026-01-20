@@ -1,2 +1,2 @@
-export * from './schemas/user-profile-response.schema';
-export * from './schemas/user-response.schema';
+export * from './user-profile-response/user-profile-response.schema';
+export * from './user-response/user-response.schema';
