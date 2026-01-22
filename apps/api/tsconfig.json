@@ -21,9 +21,9 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
+    // "strict": true,
     "paths": {
       "@app/*": ["src/app/*"],
-      "@modules/*": ["src/modules/*"],
       "@common/*": ["src/common/*"],
       "@auth/*": ["src/modules/auth/*"],
       "@users/*": ["src/modules/users/*"],
@@ -31,5 +31,6 @@
       "@config/*": ["src/config/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }
-  }
+  },
+  "include": ["src"]
 }

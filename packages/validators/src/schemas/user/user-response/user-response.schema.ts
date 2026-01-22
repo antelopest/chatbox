@@ -7,6 +7,5 @@ export const UserResponseSchema = z.object({
   id: z.string(),
   email: EmailSchema,
   profile: UserProfileResponseSchema,
-  username: z.string(),
-  createdAt: z.string(),
+  username: z.string().nullable(),
 });

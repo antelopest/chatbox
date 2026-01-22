@@ -1,12 +1,11 @@
 import * as z from 'zod';
 
-import { AccessTokenSchema, RefreshTokenSchema } from '../../../constraints';
 import { UserResponseSchema } from '../../user';
+import { AuthTokensSchema } from '../auth-tokens/auth-tokens.schema';
 
 export const AuthResponseSchema = z
   .object({
-    accessToken: AccessTokenSchema,
-    refreshToken: RefreshTokenSchema,
+    tokens: AuthTokensSchema,
     user: UserResponseSchema,
   })
   .strict();

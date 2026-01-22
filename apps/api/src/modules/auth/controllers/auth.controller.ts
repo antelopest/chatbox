@@ -3,40 +3,61 @@ import {
   Controller,
   Get,
   Post,
+  Req,
+  UnauthorizedException,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
+import type { Request } from 'express';
 
-import { GoogleAuthGuard } from '@auth/guards/google/google-auth.guard';
-import { FacebookAuthGuard } from '@auth/guards/facebook/facebook-auth.guard';
-import { AppleAuthGuard } from '@auth/guards/apple/apple-auth.guard';
+import { GoogleAuthGuard } from '@auth/providers/guards/google/google-auth.guard';
+import { FacebookAuthGuard } from '@auth/providers/guards/facebook/facebook-auth.guard';
+import { AppleAuthGuard } from '@auth/providers/guards/apple/apple-auth.guard';
 
 import { AuthService } from '@auth/services';
 
 import { ZodValidationPipe } from '@common/pipes/validation/zod-validation.pipe';
 
-import {
-  LoginSchema,
-  type LoginInput,
-  RegisterSchema,
-  type RegisterInput,
-} from '@packages/validators';
+import type { RegisterUser } from '@packages/contracts';
+import { RegisterUserSchema } from '@packages/validators';
+import { LocalAuthGuard } from '@auth/providers';
+import { UserEntity } from '@users/entities';
+import { AccessJwtAuthGuard, RefreshJwtAuthGuard } from '@auth/security/guards';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @UsePipes(new ZodValidationPipe(RegisterSchema))
-  register(@Body() registerInput: RegisterInput) {
-    return this.authService.register(registerInput);
+  @UsePipes(new ZodValidationPipe(RegisterUserSchema))
+  register(@Body() registerUser: RegisterUser) {
+    return this.authService.register(registerUser);
   }
 
-  @Get('login')
-  @UsePipes(new ZodValidationPipe(LoginSchema))
-  login(@Body() loginInput: LoginInput) {
-    return this.authService.login(loginInput);
+  @Post('login')
+  @UseGuards(LocalAuthGuard)
+  login(@Req() request: Request & { user: UserEntity }) {
+    return this.authService.login(request.user);
   }
+
+  @Get('check')
+  @UseGuards(AccessJwtAuthGuard)
+  check(@Req() request: Request) {
+    console.log(request);
+  }
+
+  @Get('refresh')
+  @UseGuards(RefreshJwtAuthGuard)
+  refresh(@Req() request: Request) {
+    console.log(request);
+  }
+
+  /* 
+  refresh - обновляет access + refresh token
+  logout - удаляет refresh token
+  login - отдает access + refresh + user 
+  check - проверяет access token
+  */
 
   @Get('google')
   @UseGuards(GoogleAuthGuard)

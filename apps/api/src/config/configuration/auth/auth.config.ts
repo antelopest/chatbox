@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { registerAs, ConfigType } from '@nestjs/config';
+import type { StringValue } from 'ms';
 import * as z from 'zod';
 
 import { Configuration } from '@config/configuration';
@@ -32,11 +33,11 @@ export const authConfig = registerAs(Configuration.AUTH, () => {
   return {
     access: {
       secret: parsed.AUTH_JWT_ACCESS_SECRET,
-      ttl: parsed.AUTH_JWT_ACCESS_TTL,
+      ttl: parsed.AUTH_JWT_ACCESS_TTL as StringValue,
     },
     refresh: {
       secret: parsed.AUTH_JWT_REFRESH_SECRET,
-      ttl: parsed.AUTH_JWT_REFRESH_TTL,
+      ttl: parsed.AUTH_JWT_REFRESH_TTL as StringValue,
     },
   };
 });
