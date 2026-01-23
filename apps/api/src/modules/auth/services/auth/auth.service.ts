@@ -107,4 +107,12 @@ export class AuthService {
 
     return AuthResponse;
   }
+
+  refresh() {
+    // 1 проверить refreshTokenId в Redis
+    // 2 удалить старый refresh
+    // 3 сгенерировать новую пару
+    // 4 сохранить новый refresh
+    // 5 вернуть access + refresh
+  }
 }

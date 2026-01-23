@@ -4,7 +4,6 @@ import {
   Get,
   Post,
   Req,
-  UnauthorizedException,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
@@ -42,8 +41,10 @@ export class AuthController {
 
   @Get('check')
   @UseGuards(AccessJwtAuthGuard)
-  check(@Req() request: Request) {
-    console.log(request);
+  check() {
+    return {
+      ok: true,
+    };
   }
 
   @Get('refresh')
