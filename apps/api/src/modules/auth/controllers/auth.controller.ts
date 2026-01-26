@@ -53,13 +53,6 @@ export class AuthController {
     console.log(request);
   }
 
-  /* 
-  refresh - обновляет access + refresh token
-  logout - удаляет refresh token
-  login - отдает access + refresh + user 
-  check - проверяет access token
-  */
-
   @Get('google')
   @UseGuards(GoogleAuthGuard)
   google() {}
