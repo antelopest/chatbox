@@ -20,6 +20,7 @@ import { UserMapper } from '@users/mapper/user.mapper';
 import { authConfig } from '@config/configuration';
 import { AccessJwtPayload, RefreshJwtPayload } from '@auth/security/types';
 import { randomUUID } from 'crypto';
+import { RefreshTokenStorage } from '@auth/security/storages';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
     private readonly passwordService: PasswordService,
+    private readonly refreshTokenStorage: RefreshTokenStorage,
   ) {}
 
   async register(registerUser: RegisterUser): Promise<UserResponse> {
@@ -72,10 +74,11 @@ export class AuthService {
     return user;
   }
 
-  private issueTokens(user: UserEntity): AuthTokens {
+  private issueAccessToken(user: UserEntity): string {
     const accessPayload: AccessJwtPayload = {
       sub: user.id,
       email: user.email,
+      type: 'access',
     };
 
     const accessToken = this.jwtService.sign(accessPayload, {
@@ -83,9 +86,16 @@ export class AuthService {
       expiresIn: this.config.access.ttl,
     });
 
+    return accessToken;
+  }
+
+  private async issueRefreshToken(user: UserEntity): Promise<string> {
+    const refreshTokenId = randomUUID();
+
     const refreshPayload: RefreshJwtPayload = {
       sub: user.id,
-      tokenId: randomUUID(),
+      jti: refreshTokenId,
+      type: 'refresh',
     };
 
     const refreshToken = this.jwtService.sign(refreshPayload, {
@@ -93,26 +103,46 @@ export class AuthService {
       expiresIn: this.config.refresh.ttl,
     });
 
+    await this.refreshTokenStorage.save(
+      user.id,
+      refreshTokenId,
+      this.config.refresh.ttlSeconds,
+    );
+
+    return refreshToken;
+  }
+
+  private async issueTokens(user: UserEntity): Promise<AuthTokens> {
     return {
-      accessToken,
-      refreshToken,
+      accessToken: this.issueAccessToken(user),
+      refreshToken: await this.issueRefreshToken(user),
     };
   }
 
-  login(userEntity: UserEntity): AuthResponse {
+  async login(userEntity: UserEntity): Promise<AuthResponse> {
     const AuthResponse: AuthResponse = {
-      tokens: this.issueTokens(userEntity),
+      tokens: await this.issueTokens(userEntity),
       user: UserMapper.toResponse(userEntity),
     };
 
     return AuthResponse;
   }
 
-  refresh() {
-    // 1 проверить refreshTokenId в Redis
-    // 2 удалить старый refresh
-    // 3 сгенерировать новую пару
-    // 4 сохранить новый refresh
-    // 5 вернуть access + refresh
+  async refresh(userId: string, refreshTokenId: string): Promise<AuthTokens> {
+    await this.refreshTokenStorage.remove(userId, refreshTokenId);
+
+    const user = await this.usersService.findOneByUserId(userId);
+
+    if (!user) {
+      throw new UnauthorizedException({
+        message: 'User not found',
+      });
+    }
+
+    return this.issueTokens(user);
+  }
+
+  async logout(userId: string, refreshTokenId: string): Promise<void> {
+    await this.refreshTokenStorage.remove(userId, refreshTokenId);
   }
 }

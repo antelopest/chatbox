@@ -38,6 +38,11 @@ export class UsersRepository {
     return doc ? this.toEntity(doc) : null;
   }
 
+  async findOneById(id: string): Promise<UserEntity | null> {
+    const doc = await this.userModel.findById(id);
+    return doc ? this.toEntity(doc) : null;
+  }
+
   async create(command: CreateUserCommand): Promise<UserEntity> {
     const doc = await this.userModel.create(command);
     return this.toEntity(doc);

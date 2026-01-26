@@ -47,10 +47,30 @@ export class AuthController {
     };
   }
 
-  @Get('refresh')
+  /* TODO перенести refreshToken с body в cookie */
+  @Post('refresh')
   @UseGuards(RefreshJwtAuthGuard)
-  refresh(@Req() request: Request) {
-    console.log(request);
+  refresh(
+    @Req()
+    request: Request & { user: { userId: string; refreshTokenId: string } },
+  ) {
+    return this.authService.refresh(
+      request.user.userId,
+      request.user.refreshTokenId,
+    );
+  }
+
+  /* TODO перенести refreshToken с body в cookie */
+  @Post('logout')
+  @UseGuards(RefreshJwtAuthGuard)
+  logout(
+    @Req()
+    request: Request & { user: { userId: string; refreshTokenId: string } },
+  ) {
+    return this.authService.logout(
+      request.user.userId,
+      request.user.refreshTokenId,
+    );
   }
 
   @Get('google')

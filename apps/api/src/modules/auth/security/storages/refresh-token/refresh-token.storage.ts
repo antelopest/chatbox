@@ -33,13 +33,4 @@ export class RefreshTokenStorage {
     const key = this.key(userId, jti);
     await this.redis.del(key);
   }
-
-  async removeAllByUser(userId: string): Promise<void> {
-    const pattern = `refresh:${userId}:*`;
-    const keys = await this.redis.keys(pattern);
-
-    if (keys.length > 0) {
-      await this.redis.del(keys);
-    }
-  }
 }

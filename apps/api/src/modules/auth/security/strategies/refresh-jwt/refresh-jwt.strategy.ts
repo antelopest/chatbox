@@ -8,28 +8,44 @@ import { authConfig } from '@config/configuration';
 
 import { SecurityProvidersEnum } from '@auth/security/enums';
 import { RefreshJwtPayload } from '@auth/security/types';
+import { RefreshTokenStorage } from '@auth/security/storages';
 
 @Injectable()
 export class RefreshJwtStrategy extends PassportStrategy(
   Strategy,
   SecurityProvidersEnum.refreshJwt,
 ) {
-  constructor(@Inject(authConfig.KEY) config: ConfigType<typeof authConfig>) {
+  constructor(
+    @Inject(authConfig.KEY) config: ConfigType<typeof authConfig>,
+    private readonly refreshTokenStorage: RefreshTokenStorage,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
       secretOrKey: config.refresh.secret,
     });
   }
 
-  validate(payload: RefreshJwtPayload) {
-    // TODO добавить проверку в REDIS => refreshTokenService.validate()
-    if (!payload?.sub || !payload?.tokenId) {
-      throw new UnauthorizedException();
+  async validate(payload: RefreshJwtPayload) {
+    if (payload.type !== 'refresh') {
+      throw new UnauthorizedException('Invalid token type');
+    }
+
+    if (!payload?.sub || !payload?.jti) {
+      throw new UnauthorizedException('Invalid token payload');
+    }
+
+    const exists = await this.refreshTokenStorage.exists(
+      payload.sub,
+      payload.jti,
+    );
+
+    if (!exists) {
+      throw new UnauthorizedException('Refresh token revoked');
     }
 
     return {
       userId: payload.sub,
-      tokenId: payload.tokenId,
+      jti: payload.jti,
     };
   }
 }

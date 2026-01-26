@@ -4,15 +4,27 @@ import { PassportModule } from '@nestjs/passport';
 
 import { AccessJwtAuthGuard, RefreshJwtAuthGuard } from './guards';
 import { AccessJwtStrategy, RefreshJwtStrategy } from './strategies';
+import { RefreshTokenStorage } from './storages';
+import { RedisModule } from '@infrastructure/redis';
 
 @Module({
-  imports: [PassportModule.register({ session: false }), JwtModule],
+  imports: [
+    RedisModule,
+    PassportModule.register({ session: false }),
+    JwtModule,
+  ],
   providers: [
     AccessJwtStrategy,
     RefreshJwtStrategy,
     AccessJwtAuthGuard,
     RefreshJwtAuthGuard,
+    RefreshTokenStorage,
   ],
-  exports: [JwtModule, AccessJwtAuthGuard, RefreshJwtAuthGuard],
+  exports: [
+    JwtModule,
+    AccessJwtAuthGuard,
+    RefreshJwtAuthGuard,
+    RefreshTokenStorage,
+  ],
 })
 export class SecurityModule {}

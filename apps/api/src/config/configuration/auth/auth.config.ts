@@ -4,6 +4,7 @@ import type { StringValue } from 'ms';
 import * as z from 'zod';
 
 import { Configuration } from '@config/configuration';
+import ms from 'ms';
 
 const logger = new Logger('AuthConfig');
 
@@ -25,19 +26,37 @@ const authSchema = z.object({
   AUTH_JWT_REFRESH_TTL: ttlSchema.default(DEFAULT_REFRESH_TTL),
 });
 
+const toSeconds = (ttl: StringValue): number => {
+  const value = ms(ttl);
+
+  if (typeof value !== 'number') {
+    throw new Error(`Invalid TTL value: ${ttl}`);
+  }
+
+  return Math.floor(value / 1000);
+};
+
 export const authConfig = registerAs(Configuration.AUTH, () => {
   const parsed = authSchema.parse(process.env);
 
   logger.log(`${Configuration.AUTH} config loaded.`);
 
+  const accessTtl = parsed.AUTH_JWT_ACCESS_TTL as StringValue;
+  const accessTtlSeconds = toSeconds(accessTtl);
+
+  const refreshTtl = parsed.AUTH_JWT_REFRESH_TTL as StringValue;
+  const refreshTtlSeconds = toSeconds(refreshTtl);
+
   return {
     access: {
       secret: parsed.AUTH_JWT_ACCESS_SECRET,
-      ttl: parsed.AUTH_JWT_ACCESS_TTL as StringValue,
+      ttl: accessTtl,
+      ttlSeconds: accessTtlSeconds,
     },
     refresh: {
       secret: parsed.AUTH_JWT_REFRESH_SECRET,
-      ttl: parsed.AUTH_JWT_REFRESH_TTL as StringValue,
+      ttl: refreshTtl,
+      ttlSeconds: refreshTtlSeconds,
     },
   };
 });
