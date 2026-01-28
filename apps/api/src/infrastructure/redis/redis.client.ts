@@ -1,7 +1,7 @@
 import Redis from 'ioredis';
 import { Logger } from '@nestjs/common';
 
-import { RedisConfig } from '@config/configuration';
+import { type RedisConfig } from '@config/configuration';
 
 const logger = new Logger('Redis');
 

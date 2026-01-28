@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { ConfigType, registerAs } from '@nestjs/config';
+import { type ConfigType, registerAs } from '@nestjs/config';
 import * as z from 'zod';
 
 import { Configuration } from '@config/configuration';

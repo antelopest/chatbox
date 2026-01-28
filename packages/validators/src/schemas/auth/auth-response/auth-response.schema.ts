@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
-import { UserResponseSchema } from '../../user';
 import { AuthTokensSchema } from '../auth-tokens/auth-tokens.schema';
+import { UserResponseSchema } from '../../user';
 
 export const AuthResponseSchema = z
   .object({

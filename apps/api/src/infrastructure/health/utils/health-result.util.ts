@@ -1,6 +1,6 @@
 import {
   HEALTH_STATUS,
-  HealthIndicatorResult,
+  type HealthIndicatorResult,
 } from '@infrastructure/health/types';
 
 export function up(key: string): HealthIndicatorResult {

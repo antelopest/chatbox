@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolvePackageJsonExports": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "verbatimModuleSyntax": false,
     "esModuleInterop": true,
     "isolatedModules": true,
     "declaration": true,
@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
+    "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -25,9 +25,9 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@common/*": ["src/common/*"],
-      "@auth/*": ["src/modules/auth/*"],
-      "@users/*": ["src/modules/users/*"],
-      "@changelog/*": ["src/modules/changelog/*"],
+      "@auth/*": ["src/auth/*"],
+      "@users/*": ["src/users/*"],
+      "@changelog/*": ["src/changelog/*"],
       "@config/*": ["src/config/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }

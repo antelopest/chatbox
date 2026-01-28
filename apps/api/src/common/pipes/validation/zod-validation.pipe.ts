@@ -1,4 +1,4 @@
-import { BadRequestException, PipeTransform } from '@nestjs/common';
+import { BadRequestException, type PipeTransform } from '@nestjs/common';
 import { ZodError, ZodType } from 'zod';
 import { ErrorCode } from '@common/errors';
 

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RedisConfig, redisConfig } from '@config/configuration';
+import { type RedisConfig, redisConfig } from '@config/configuration';
 
 import { createRedisClient } from './redis.client';
 

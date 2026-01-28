@@ -1,4 +1,4 @@
-import { HealthStatus } from './health-status.type';
+import { type HealthStatus } from './health-status.type';
 
 export type HealthIndicatorDetails = {
   status: HealthStatus;

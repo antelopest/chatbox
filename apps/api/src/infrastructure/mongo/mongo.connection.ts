@@ -1,8 +1,8 @@
 import mongoose, { Connection } from 'mongoose';
-import { MongooseModuleOptions } from '@nestjs/mongoose';
+import { type MongooseModuleOptions } from '@nestjs/mongoose';
 import { Logger } from '@nestjs/common';
 
-import { MongoConfig } from '@config/configuration';
+import { type MongoConfig } from '@config/configuration';
 
 const logger = new Logger('MongoDB');
 

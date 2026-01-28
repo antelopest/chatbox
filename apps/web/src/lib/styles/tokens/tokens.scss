@@ -1,0 +1,20 @@
+:root {
+  /* Typography */
+  --font-family-base: 'Poppins';
+  --font-size-base: 16px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Colors */
+  --color-primary: rgb(1, 78, 254);
+--color-primary-hover: rgb(0, 66, 215);
+  --color-primary-blue: rgb(0, 41, 150);
+  --color-text: rgb(27, 27, 27);
+  --color-bg: rgb(255, 255, 255);
+  --color-second-bg: rgb(247, 248, 252);
+
+  --bp-mobile: 768px;
+  --bp-tablet: 1024px;
+}
