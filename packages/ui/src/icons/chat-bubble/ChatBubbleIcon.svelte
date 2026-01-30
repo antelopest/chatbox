@@ -1,4 +1,3 @@
-<!-- packages/ui/src/icons/ChatIcon.svelte -->
 <script lang="ts">
   import IconBase from '../IconBase.svelte';
 </script>

@@ -10,6 +10,11 @@ async function bootstrap() {
   const config = app.get<EnvConfig>(envConfig.KEY);
   const { port, env, apiPrefix, applicationName } = config;
 
+  app.enableCors({
+    origin: env === 'production' ? true : 'http://localhost:5173',
+    credentials: true,
+  });
+
   app.setGlobalPrefix(apiPrefix);
 
   await app.listen(port);

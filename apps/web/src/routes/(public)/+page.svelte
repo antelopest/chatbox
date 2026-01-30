@@ -1,15 +1,15 @@
 <script lang="ts">
-  import { LoginForm } from '$lib/features/auth';
+  import { RegisterForm } from '$lib/features/auth';
 </script>
 
 <div class="auth-card__main">
-  <LoginForm></LoginForm>
+  <RegisterForm></RegisterForm>
 </div>
 
 <div class="auth-card__footer">
   <p class="auth-card__alternative">
-    Don't Have An Account? {` `}<a class="auth-card__action" href="/"
-      >Register now</a
+    Already Have an Account? {` `}<a class="auth-card__sign-in" href="/login"
+      >Sign in</a
     >
   </p>
 </div>
@@ -31,7 +31,7 @@
     font-weight: var(--font-weight-regular);
   }
 
-  .auth-card__action {
+  .auth-card__sign-in {
     text-decoration: none;
     cursor: pointer;
     color: var(--color-primary);

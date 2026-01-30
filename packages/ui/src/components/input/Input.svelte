@@ -90,35 +90,37 @@
   }
 
   .label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary, #64748b);
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-regular, 400);
+    color: var(--color-text, #64748b);
   }
 
   .req {
-    margin-left: 4px;
-    color: var(--red-500, #ef4444);
+    margin-left: 0.1rem;
+    color: var(--color-red, #ef4444);
   }
 
   .control {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 0 12px;
-    height: 44px;
-    border-radius: 12px;
+    gap: 0.5rem;
+    padding: 0 0.8rem;
+    height: 3rem;
+    border-radius: 0.8rem;
     border: 1px solid var(--border, #e2e8f0);
     background: var(--surface, #fff);
-    transition: border-color 120ms ease, box-shadow 120ms ease;
+    transition:
+      border-color 120ms ease,
+      box-shadow 120ms ease;
   }
 
   .control:focus-within {
-    border-color: var(--blue-500, #3b82f6);
+    border-color: var(--color-primary, #3b82f6);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
   }
 
   .control.has-error {
-    border-color: var(--red-500, #ef4444);
+    border-color: var(--color-red, #ef4444);
   }
 
   .input {
@@ -131,17 +133,17 @@
   }
 
   .input:disabled {
-    color: var(--text-muted, #94a3b8);
+    color: var(--color-text-muted, #94a3b8);
     cursor: not-allowed;
   }
 
   .hint {
     font-size: 12px;
-    color: var(--text-muted, #94a3b8);
+    color: var(--color-text-muted, #94a3b8);
   }
 
   .error {
     font-size: 12px;
-    color: var(--red-500, #ef4444);
+    color: var(--color-red, #ef4444);
   }
 </style>

@@ -6,8 +6,10 @@ import { MongoConnection } from '@infrastructure/mongo';
 import { User, UserSchema } from '@users/schemas/user.schema';
 import { UsersService } from '@users/services';
 import { UsersRepository } from '@users/repositories';
+import { UsersController } from '@users/controllers';
 
 @Module({
+  controllers: [UsersController],
   imports: [
     InfrastructureModule,
     MongooseModule.forFeature(

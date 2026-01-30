@@ -9,12 +9,14 @@
 
   /* Colors */
   --color-primary: rgb(1, 78, 254);
---color-primary-hover: rgb(0, 66, 215);
+  --color-primary-hover: rgb(0, 66, 215);
   --color-primary-blue: rgb(0, 41, 150);
+  --color-secondary: rgb(255,255,255);
   --color-text: rgb(27, 27, 27);
+  --color-text-muted: rgb(148, 163, 184);
   --color-bg: rgb(255, 255, 255);
   --color-second-bg: rgb(247, 248, 252);
+  --color-red: rgb(239, 68, 68);
 
-  --bp-mobile: 768px;
-  --bp-tablet: 1024px;
+  --color-line: rgb(224, 224, 224);
 }

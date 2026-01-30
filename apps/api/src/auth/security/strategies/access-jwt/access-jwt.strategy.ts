@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import type { Request } from 'express';
 
 import { SecurityProvidersEnum } from 'src/auth/security/enums';
 import { type AccessJwtPayload } from 'src/auth/security/types';
@@ -14,7 +15,20 @@ export class AccessJwtStrategy extends PassportStrategy(
 ) {
   constructor(@Inject(authConfig.KEY) config: ConfigType<typeof authConfig>) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: Request) => {
+          const header = request?.headers?.cookie;
+          if (!header) return null;
+          const cookies = Object.fromEntries(
+            header.split(';').map((part) => {
+              const [key, ...rest] = part.trim().split('=');
+              return [key, decodeURIComponent(rest.join('='))];
+            }),
+          );
+          return cookies.accessToken ?? null;
+        },
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ]),
       secretOrKey: config.access.secret,
     });
   }

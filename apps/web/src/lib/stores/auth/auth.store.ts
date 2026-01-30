@@ -1,4 +1,8 @@
-import type { AuthResponse, UserResponse } from '@packages/contracts';
+import type {
+  AuthResponse,
+  UserProfileResponse,
+  UserResponse,
+} from '@packages/contracts';
 import { writable } from 'svelte/store';
 
 export interface AuthState {
@@ -12,11 +16,17 @@ export const auth = writable<AuthState>({
 
 export function setAuth(response: AuthResponse) {
   auth.set({
-    accessToken: response.tokens.accessToken,
+    accessToken: null,
     user: response.user,
   });
+}
 
-  localStorage.setItem('accessToken', response.tokens.accessToken);
+export function setUser(user: UserResponse | UserProfileResponse) {
+  auth.update((state) => ({ ...state, user }));
+}
+
+export function setAccessToken(accessToken: string | null) {
+  auth.update((state) => ({ ...state, accessToken }));
 }
 
 export function clearAuth() {

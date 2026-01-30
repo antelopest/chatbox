@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { LocalStrategy } from '@auth/providers/strategies';
 import {
+  AuthCookieService,
   AuthService,
   PasswordService,
   UsernameService,
@@ -13,7 +14,13 @@ import { SecurityModule } from '@auth/security/security.module';
 
 @Module({
   imports: [UsersModule, SecurityModule],
-  providers: [AuthService, PasswordService, UsernameService, LocalStrategy],
+  providers: [
+    AuthService,
+    AuthCookieService,
+    PasswordService,
+    UsernameService,
+    LocalStrategy,
+  ],
   controllers: [AuthController],
   exports: [],
 })

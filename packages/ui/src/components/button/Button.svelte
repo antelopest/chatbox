@@ -1,47 +1,43 @@
 <script lang="ts">
-  export let variant: 'primary' | 'ghost' = 'primary';
+  export let type: 'button' | 'submit' | 'reset' = 'button';
   export let disabled = false;
 </script>
 
-<button
-  class="btn {variant}"
-  {disabled}
->
+<button class="primary" {type} {disabled} {...$$restProps}>
   <slot />
 </button>
 
 <style lang="scss">
-.btn {
-  height: 44px;
-  padding: 0 16px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  transition: background 0.15s ease;
+  .primary {
+    padding: 0.8rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    border: none;
+    background: var(--color-primary, #2563eb);
+    color: var(--color-bg, #ffffff);
+    letter-spacing: 0.6px;
+    font-weight: var(--font-weight-medium, 500);
+    cursor: pointer;
 
-  &.primary {
-    background: var(--blue-500);
-    color: white;
-
-    &:hover:not(:disabled) {
-      background: #1d4ed8;
-    }
+    transition:
+      background-color 0.2s ease,
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
   }
 
-  &.ghost {
-    background: transparent;
-    color: var(--text-primary);
-
-    &:hover:not(:disabled) {
-      background: var(--bg-muted);
-    }
+  .primary:hover:not(:disabled) {
+    background-color: var(--color-primary-hover, #1d4ed8);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   }
 
-  &:disabled {
+  .primary:focus-visible {
+    outline: 2px solid var(--color-primary, #2563eb);
+    outline-offset: 3px;
+  }
+
+  .primary:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-}
 </style>

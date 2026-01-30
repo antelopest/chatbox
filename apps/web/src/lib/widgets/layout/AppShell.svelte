@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Sidebar from './Sidebar.svelte';
+  import Sidebar from '../sidebar/components/sidebar/Sidebar.svelte';
   import ChatList from '../chat/ChatList.svelte';
   import ChatRoom from '../chat/ChatRoom.svelte';
 

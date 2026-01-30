@@ -1,8 +1,15 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import { type UserEntity } from '@users/entities';
 import { UsersRepository } from '@users/repositories';
 import { type CreateUserCommand } from '@users/commands';
+import { UserResponse } from '@packages/contracts';
+import { UserMapper } from '@users/mapper/user.mapper';
 
 @Injectable()
 export class UsersService {
@@ -43,5 +50,17 @@ export class UsersService {
     await this.uniqueUsername(username);
 
     return await this.usersRepository.create(command);
+  }
+
+  async getProfile(userId: string): Promise<UserResponse> {
+    const user: UserEntity | null = await this.findOneByUserId(userId);
+
+    if (!user) {
+      throw new UnauthorizedException({
+        message: 'User not found',
+      });
+    }
+
+    return UserMapper.toResponse(user);
   }
 }

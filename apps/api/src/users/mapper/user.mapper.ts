@@ -11,6 +11,7 @@ export class UserMapper {
       profile: {
         displayName: user.profile?.displayName ?? null,
       },
+      createdAt: user.createdAt,
     });
   }
 }
