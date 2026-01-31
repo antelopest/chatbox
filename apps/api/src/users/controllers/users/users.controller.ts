@@ -18,7 +18,6 @@ export class UsersController {
       };
     },
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.usersService.getProfile(request.user.userId);
   }
 }

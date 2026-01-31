@@ -1,40 +1,43 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
+  import { Avatar } from '$lib/components';
+  import { Input } from '@packages/ui';
 
-  import type { UserProfileResponse } from '@packages/contracts';
-  import ProfileCard from '$lib/features/profile/components/ProfileCard.svelte';
-  import { auth, setUser } from '$lib/stores';
-  import { http } from '$lib/services/http';
+  import { auth } from '$lib/stores';
+  import { formatDate } from '$lib/utils';
+  import { PageHeader } from '$lib/components';
 
-  let user: UserProfileResponse | null = null;
-  $: user = $auth.user as UserProfileResponse | null;
-
-  onMount(async () => {
-    try {
-      const data = await http<UserProfileResponse>('/api/users/profile');
-      setUser(data);
-    } catch {
-      goto('/login');
-    }
-
-  });
+  let username = $auth.user?.username ?? '';
+  let email = $auth.user?.email ?? '';
+  let createdAt = formatDate($auth.user?.createdAt) ?? '';
 </script>
 
-<section class="profile">
-  <h1 class="profile__title">Profile</h1>
-  <ProfileCard {user} />
+<section class="profile-page">
+  <PageHeader title="Profile"></PageHeader>
+
+  <div class="profile-page__main">
+    <Avatar></Avatar>
+
+    <div class="profile-page__card">
+      <Input label="Username" readonly bind:value={username}></Input>
+      <Input label="Email" readonly bind:value={email}></Input>
+      <Input label="Created" readonly bind:value={createdAt}></Input>
+    </div>
+  </div>
 </section>
 
 <style lang="scss">
-  .profile {
+  .profile-page__main {
+    padding: 2rem 1.5rem;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 2rem;
   }
 
-  .profile__title {
-    margin: 0;
-    font-size: 22px;
+  .profile-page__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 350px;
   }
 </style>

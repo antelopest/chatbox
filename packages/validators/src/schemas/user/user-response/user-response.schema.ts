@@ -8,4 +8,5 @@ export const UserResponseSchema = z.object({
   email: EmailSchema,
   profile: UserProfileResponseSchema,
   username: z.string().nullable(),
+  createdAt: z.date(),
 });

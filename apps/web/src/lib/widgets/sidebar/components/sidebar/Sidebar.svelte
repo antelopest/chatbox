@@ -1,7 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { Logo } from '$lib/components';
-  import { ProfileCircleIcon } from '@packages/ui';
   import Profile from '../profile/Profile.svelte';
 
   const items = [
@@ -55,7 +54,6 @@
     &__footer {
       margin-top: auto;
       padding: 2rem 1.5rem;
-      border-top: 1px solid var(--color-line);
     }
   }
 

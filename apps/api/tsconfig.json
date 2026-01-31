@@ -29,6 +29,7 @@
       "@users/*": ["src/users/*"],
       "@changelog/*": ["src/changelog/*"],
       "@config/*": ["src/config/*"],
+      "@dialogs/*": ["src/dialogs/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }
   },
