@@ -6,7 +6,7 @@ import type {
 
 import { AUTH_ROUTES } from './auth.routes';
 
-import { http } from '$lib/services/http';
+import { http } from '$lib/common/services/http';
 
 export const authApi = {
   register(data: RegisterUser) {

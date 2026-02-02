@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import { Dialog, DialogDocument } from '@dialogs/schemas';
 import { MongoConnection } from '@infrastructure/mongo';
@@ -13,23 +13,28 @@ export class DialogsRepository {
   ) {}
 
   findByUser(userId: string) {
+    const userObjectId = new Types.ObjectId(userId);
     return this.dialogModel
-      .find({ participants: userId })
+      .find({ participants: userObjectId })
       .sort({ updatedAt: -1 })
       .lean();
   }
 
   findPrivateBetween(userA: string, userB: string) {
+    const userAId = new Types.ObjectId(userA);
+    const userBId = new Types.ObjectId(userB);
     return this.dialogModel.findOne({
       type: 'private',
-      participants: { $all: [userA, userB] },
+      participants: { $all: [userAId, userBId] },
     });
   }
 
   createPrivate(userA: string, userB: string) {
+    const userAId = new Types.ObjectId(userA);
+    const userBId = new Types.ObjectId(userB);
     return this.dialogModel.create({
       type: 'private',
-      participants: [userA, userB],
+      participants: [userAId, userBId],
     });
   }
 

@@ -1,13 +1,26 @@
-<section class="placeholder-page">
-  <h1>Contacts</h1>
-  <p>Coming soon.</p>
+<script>
+  import { PageHeader } from '$lib/common';
+</script>
+
+<section class="contacts-page">
+  <PageHeader title="Contacts"></PageHeader>
+
+  <div class="contacts-page__main"></div>
 </section>
 
 <style lang="scss">
-  .placeholder-page {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
+  .contacts-page__main {
+    padding: 2rem 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contacts-page__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 350px;
   }
 </style>

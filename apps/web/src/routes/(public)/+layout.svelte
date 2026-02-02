@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Logo } from '$lib/components';
+  import { LogoApp } from '$lib/common';
 </script>
 
 <div class="auth-page">
   <div class="auth-card">
     <div class="auth-card__header">
-      <Logo></Logo>
+      <LogoApp></LogoApp>
 
       <p class="auth-card__description">
         Get the best experience when sending messages, because{' '}

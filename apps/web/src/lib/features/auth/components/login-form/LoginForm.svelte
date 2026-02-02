@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { authApi } from '$lib/features/auth/api/auth.api';
+  import { authApi } from '$lib/features/auth';
   import { goto } from '$app/navigation';
-  import type { FieldErrors } from '$lib/utils';
+  import type { FieldErrors } from '$lib/common/utils';
   import { LoginUserSchema } from '@packages/validators';
-  import type { LoginUser } from '@packages/contracts';
+  import type { AuthResponse, LoginUser } from '@packages/contracts';
   import { Button, Input } from '@packages/ui';
   import { setAuth } from '$lib/stores';
 
@@ -15,6 +15,7 @@
   };
 
   let errors: FormErrors = {};
+
   let submitError: string | null = null;
   let loading = false;
 
@@ -41,8 +42,12 @@
 
     try {
       loading = true;
-      const response = await authApi.login(loginUserForm);
-      setAuth(response);
+
+      const authResponse: AuthResponse = await authApi.login(loginUserForm);
+
+      const { user } = authResponse;
+      setAuth(user);
+
       await goto('/profile');
     } catch (e) {
       submitError = (e as Error).message;
@@ -79,9 +84,7 @@
     <p class="submit-error">{submitError}</p>
   {/if}
 
-  <Button type="submit" disabled={loading}>
-    {loading ? 'Log in account...' : 'Log In'}
-  </Button>
+  <Button type="submit" disabled={loading}>Log In</Button>
 </form>
 
 <style lang="scss">

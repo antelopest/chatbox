@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import ChatList from '$lib/widgets/chat/ChatList.svelte';
   import ChatRoom from '$lib/widgets/chat/ChatRoom.svelte';
 
@@ -44,5 +44,32 @@
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
+  }
+</style> -->
+
+<script>
+  import { PageHeader } from '$lib/common';
+</script>
+
+<section class="messages-page">
+  <PageHeader title="Messages"></PageHeader>
+
+  <div class="messages-page__main"></div>
+</section>
+
+<style lang="scss">
+  .messages-page__main {
+    padding: 2rem 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .messages-page__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 350px;
   }
 </style>

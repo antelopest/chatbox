@@ -1,41 +1,32 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import Sidebar from '$lib/widgets/sidebar/components/sidebar/Sidebar.svelte';
+  import type { AppData } from '$lib/common/types';
   import { setUser } from '$lib/stores';
-  import type { UserProfileResponse } from '@packages/contracts';
 
-  export let data: { user: UserProfileResponse };
+  import { Sidebar } from '$lib/widgets/sidebar';
+
+  export let data: AppData;
 
   $: if (browser && data?.user) {
     setUser(data.user);
   }
 </script>
 
-<div class="app-layout">
-  <aside class="app-layout__sidebar">
+<div class="app-page">
+  <aside class="app-page__sidebar">
     <Sidebar />
   </aside>
 
-  <main class="app-layout__content">
+  <main class="app-page__content">
     <slot />
   </main>
 </div>
 
 <style lang="scss">
-  .app-layout {
+  .app-page {
     min-height: 100svh;
     display: grid;
     grid-template-columns: 280px 1fr;
     background: var(--color-second-bg);
   }
-
-  // .app-layout__sidebar {
-  //   background: var(--bg-panel);
-  //   border-right: 1px solid var(--border);
-  // }
-
-  // .app-layout__content {
-  //   background: var(--bg-muted);
-  //   padding: 24px;
-  // }
 </style>

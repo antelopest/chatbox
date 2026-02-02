@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Avatar } from '$lib/components';
+  import { UserAvatar } from '$lib/common';
   import { auth, clearAuth } from '$lib/stores';
-  import { authApi } from '$lib/features/auth/api/auth.api';
+  import { authApi } from '$lib/features/auth';
   import { goto } from '$app/navigation';
 
   $: username = $auth.user?.username
@@ -19,7 +19,7 @@
 </script>
 
 <div class="profile">
-  <Avatar></Avatar>
+  <UserAvatar></UserAvatar>
   <div class="profile__info">
     <span class="profile__info-username">{username}</span>
     <button

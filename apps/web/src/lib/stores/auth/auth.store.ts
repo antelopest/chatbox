@@ -1,4 +1,4 @@
-import type { AuthResponse, UserResponse } from '@packages/contracts';
+import type { UserResponse } from '@packages/contracts';
 import { writable } from 'svelte/store';
 
 export interface AuthState {
@@ -8,9 +8,9 @@ export const auth = writable<AuthState>({
   user: null,
 });
 
-export function setAuth(response: AuthResponse) {
+export function setAuth(userResponse: UserResponse) {
   auth.set({
-    user: response.user,
+    user: userResponse,
   });
 }
 

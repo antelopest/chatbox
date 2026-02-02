@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { Logo } from '$lib/components';
+  import { page } from '$app/state';
+  import { LogoApp } from '$lib/common';
   import Profile from '../profile/Profile.svelte';
 
   const items = [
@@ -10,12 +10,12 @@
     { label: 'Stories', href: '/stories' },
   ];
 
-  $: pathname = $page.url.pathname;
+  $: pathname = page.url.pathname;
 </script>
 
 <nav class="sidebar">
   <div class="sidebar__header">
-    <Logo></Logo>
+    <LogoApp></LogoApp>
   </div>
 
   <div class="sidebar__main">

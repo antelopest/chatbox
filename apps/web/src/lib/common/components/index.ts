@@ -1,0 +1,3 @@
+export { default as LogoApp } from './logo-app/LogoApp.svelte';
+export { default as UserAvatar } from './user-avatar/UserAvatar.svelte';
+export { default as PageHeader } from './page-header/PageHeader.svelte';

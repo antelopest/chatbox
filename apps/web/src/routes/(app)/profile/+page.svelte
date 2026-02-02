@@ -1,21 +1,23 @@
 <script lang="ts">
-  import { Avatar } from '$lib/components';
+  import { UserAvatar, formatDate, PageHeader } from '$lib/common';
   import { Input } from '@packages/ui';
 
   import { auth } from '$lib/stores';
-  import { formatDate } from '$lib/utils';
-  import { PageHeader } from '$lib/components';
 
-  let username = $auth.user?.username ?? '';
-  let email = $auth.user?.email ?? '';
-  let createdAt = formatDate($auth.user?.createdAt) ?? '';
+  let username = '';
+  let email = '';
+  let createdAt = '';
+
+  $: username = $auth.user?.username ?? '';
+  $: email = $auth.user?.email ?? '';
+  $: createdAt = formatDate($auth.user?.createdAt) ?? '';
 </script>
 
 <section class="profile-page">
   <PageHeader title="Profile"></PageHeader>
 
   <div class="profile-page__main">
-    <Avatar></Avatar>
+    <UserAvatar></UserAvatar>
 
     <div class="profile-page__card">
       <Input label="Username" readonly bind:value={username}></Input>

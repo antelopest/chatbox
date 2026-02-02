@@ -1,13 +1,26 @@
-<section class="placeholder-page">
-  <h1>Stories</h1>
-  <p>Coming soon.</p>
+<script>
+  import { PageHeader } from '$lib/common';
+</script>
+
+<section class="messages-page">
+  <PageHeader title="Stories"></PageHeader>
+
+  <div class="messages-page__main"></div>
 </section>
 
 <style lang="scss">
-  .placeholder-page {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
+  .messages-page__main {
+    padding: 2rem 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .messages-page__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 350px;
   }
 </style>
