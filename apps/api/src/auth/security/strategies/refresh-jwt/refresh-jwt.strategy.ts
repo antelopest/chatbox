@@ -10,6 +10,7 @@ import { authConfig } from '@config/configuration';
 import { SecurityProvidersEnum } from 'src/auth/security/enums';
 import { type RefreshJwtPayload } from 'src/auth/security/types';
 import { RefreshTokenStorage } from 'src/auth/security/storages';
+import { type RefreshPayload } from '@common/types';
 
 @Injectable()
 export class RefreshJwtStrategy extends PassportStrategy(
@@ -39,7 +40,7 @@ export class RefreshJwtStrategy extends PassportStrategy(
     });
   }
 
-  async validate(payload: RefreshJwtPayload) {
+  async validate(payload: RefreshJwtPayload): Promise<RefreshPayload> {
     if (payload.type !== 'refresh') {
       throw new UnauthorizedException('Invalid token type');
     }
@@ -57,9 +58,11 @@ export class RefreshJwtStrategy extends PassportStrategy(
       throw new UnauthorizedException('Refresh token revoked');
     }
 
-    return {
+    const refreshPayload: RefreshPayload = {
       userId: payload.sub,
       jti: payload.jti,
     };
+
+    return refreshPayload;
   }
 }

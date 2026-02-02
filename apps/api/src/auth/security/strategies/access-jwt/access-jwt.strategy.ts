@@ -7,6 +7,7 @@ import type { Request } from 'express';
 import { SecurityProvidersEnum } from 'src/auth/security/enums';
 import { type AccessJwtPayload } from 'src/auth/security/types';
 import { authConfig } from '@config/configuration';
+import { type AccessPayload } from '@common/types';
 
 @Injectable()
 export class AccessJwtStrategy extends PassportStrategy(
@@ -33,10 +34,12 @@ export class AccessJwtStrategy extends PassportStrategy(
     });
   }
 
-  validate(payload: AccessJwtPayload) {
-    return {
+  validate(payload: AccessJwtPayload): AccessPayload {
+    const accessPayload: AccessPayload = {
       userId: payload.sub,
       email: payload.email,
     };
+
+    return accessPayload;
   }
 }

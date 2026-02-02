@@ -8,7 +8,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import type { Request, Response } from 'express';
+import type { Response } from 'express';
 
 import { GoogleAuthGuard } from 'src/auth/providers/guards/google/google-auth.guard';
 import { FacebookAuthGuard } from 'src/auth/providers/guards/facebook/facebook-auth.guard';
@@ -25,14 +25,14 @@ import type {
 } from '@packages/contracts';
 import { RegisterUserSchema } from '@packages/validators';
 import { LocalAuthGuard } from 'src/auth/providers';
-import { type UserEntity } from '@users/entities';
 import {
   AccessJwtAuthGuard,
   RefreshJwtAuthGuard,
 } from 'src/auth/security/guards';
-
-type RequestLogin = Request & { user: UserEntity };
-type RequestRefresh = Request & { user: { userId: string; jti: string } };
+import type {
+  LoginRequest,
+  RefreshPayloadRequest,
+} from '@common/types/requests';
 
 @Controller('auth')
 export class AuthController {
@@ -58,11 +58,11 @@ export class AuthController {
   @Post('login')
   @UseGuards(LocalAuthGuard)
   async login(
-    @Req() request: RequestLogin,
+    @Req() loginRequest: LoginRequest,
     @Res({ passthrough: true }) response: Response,
   ) {
     const authResponse: AuthResponse = await this.authService.login(
-      request.user,
+      loginRequest.user,
     );
 
     this.authCookieService.setAuthCookie(response, authResponse.tokens);
@@ -82,7 +82,7 @@ export class AuthController {
   @UseGuards(RefreshJwtAuthGuard)
   async refresh(
     @Req()
-    request: RequestRefresh,
+    request: RefreshPayloadRequest,
     @Res({ passthrough: true }) response: Response,
   ) {
     const authTokens: AuthTokens = await this.authService.refresh(
@@ -99,7 +99,7 @@ export class AuthController {
   @UseGuards(RefreshJwtAuthGuard)
   logout(
     @Req()
-    request: RequestRefresh,
+    request: RefreshPayloadRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
     this.authCookieService.clearAuthCookie(res);

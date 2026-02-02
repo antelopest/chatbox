@@ -1,7 +1,7 @@
 import { AccessJwtAuthGuard } from '@auth/security/guards';
-import type { Request } from 'express';
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from '@users/services';
+import { type AccessPayloadRequest } from '@common/types';
 
 @Controller('users')
 export class UsersController {
@@ -11,12 +11,7 @@ export class UsersController {
   @UseGuards(AccessJwtAuthGuard)
   getProfile(
     @Req()
-    request: Request & {
-      user: {
-        userId: string;
-        email: string;
-      };
-    },
+    request: AccessPayloadRequest,
   ) {
     return this.usersService.getProfile(request.user.userId);
   }
