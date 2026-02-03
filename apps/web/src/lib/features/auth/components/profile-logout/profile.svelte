@@ -3,6 +3,7 @@
   import { auth, clearAuth } from '$lib/stores';
   import { authApi } from '$lib/features/auth';
   import { goto } from '$app/navigation';
+  import { APP_ROUTES } from '$lib/navigation';
 
   $: username = $auth.user?.username
     ? $auth.user.username.charAt(0).toUpperCase() + $auth.user.username.slice(1)
@@ -13,7 +14,7 @@
       await authApi.logout();
     } finally {
       clearAuth();
-      await goto('/login');
+      await goto(APP_ROUTES.login);
     }
   };
 </script>

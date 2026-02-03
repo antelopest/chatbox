@@ -17,6 +17,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --out-dir dist --clean"
   },
   "dependencies": {
-    "zod": "^4.2.1"
+    "zod": "^4.2.1",
+    "@packages/types": "workspace:*"
   }
 }

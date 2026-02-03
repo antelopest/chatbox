@@ -1,10 +1,15 @@
 <script lang="ts">
-  export let type: 'button' | 'submit' | 'reset' = 'button';
-  export let disabled = false;
+  import type { Snippet } from 'svelte';
+
+  const { type = 'button', disabled = false, children, ...rest } = $props<{
+    type?: 'button' | 'submit' | 'reset';
+    disabled?: boolean;
+    children?: Snippet;
+  }>();
 </script>
 
-<button class="primary" {type} {disabled} {...$$restProps}>
-  <slot />
+<button class="primary" {type} {disabled} {...rest}>
+  {@render children?.()}
 </button>
 
 <style lang="scss">

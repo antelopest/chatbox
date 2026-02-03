@@ -19,6 +19,6 @@ import { DialogsRepository } from '@dialogs/repositories';
     ),
   ],
   providers: [DialogsService, DialogsRepository],
-  exports: [DialogsService],
+  exports: [DialogsService, DialogsRepository],
 })
 export class DialogsModule {}

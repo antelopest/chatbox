@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { UserAvatar, formatDate, PageHeader } from '$lib/common';
+  import { UserAvatar, formatDate } from '$lib/common';
   import { Input } from '@packages/ui';
 
   import { auth } from '$lib/stores';
@@ -14,8 +14,6 @@
 </script>
 
 <section class="profile-page">
-  <PageHeader title="Profile"></PageHeader>
-
   <div class="profile-page__main">
     <UserAvatar></UserAvatar>
 

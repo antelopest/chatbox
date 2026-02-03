@@ -1,6 +1,8 @@
-<script>
-  export let message;
-  export let isMine = false;
+<script lang="ts">
+  const { message, isMine = false } = $props<{
+    message: { text: string };
+    isMine?: boolean;
+  }>();
 </script>
 
 <div class="bubble" class:mine={isMine}>

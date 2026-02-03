@@ -1,2 +1,3 @@
-export { default as Sidebar } from './components/sidebar/Sidebar.svelte';
-export { default as Profile } from './components/profile/Profile.svelte';
+export * from './sidebar';
+export { default as SidebarNav } from './SidebarNav.svelte';
+export { default as Sidebar } from './Sidebar.svelte';

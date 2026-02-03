@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { DialogType } from '@packages/types';
 import { type HydratedDocument, Types } from 'mongoose';
 
 @Schema({ timestamps: true })
@@ -11,10 +12,11 @@ export class Dialog {
   participants: Types.ObjectId[];
 
   @Prop({
-    enum: ['private', 'group'],
-    default: 'private',
+    enum: Object.values(DialogType),
+    required: true,
+    default: DialogType.PRIVATE,
   })
-  type: 'private' | 'group';
+  type: DialogType;
 
   @Prop({
     type: Types.ObjectId,

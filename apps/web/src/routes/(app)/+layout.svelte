@@ -1,15 +1,24 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import { PageHeader } from '$lib/common';
   import type { AppData } from '$lib/common/types';
   import { setUser } from '$lib/stores';
-
   import { Sidebar } from '$lib/widgets/sidebar';
+  import { page } from '$app/state';
+  import { getActiveNavItem } from '$lib/widgets/sidebar';
 
-  export let data: AppData;
+  const { data, children } = $props<{
+    data: AppData;
+    children: import('svelte').Snippet;
+  }>();
 
-  $: if (browser && data?.user) {
-    setUser(data.user);
-  }
+  const activeNav = $derived(getActiveNavItem(page.url.pathname));
+
+  $effect(() => {
+    if (browser && data?.user) {
+      setUser(data.user);
+    }
+  });
 </script>
 
 <div class="app-page">
@@ -18,7 +27,9 @@
   </aside>
 
   <main class="app-page__content">
-    <slot />
+    <PageHeader title={activeNav?.title ?? '...'}></PageHeader>
+
+    {@render children()}
   </main>
 </div>
 

@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let selectedChatId: string | null = null;
+  const { selectedChatId = $bindable<string | null>(null) } = $props<{
+    selectedChatId?: string | null;
+  }>();
 
   const chats = [
     {

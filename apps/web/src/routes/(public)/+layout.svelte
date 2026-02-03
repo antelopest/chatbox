@@ -1,5 +1,7 @@
 <script lang="ts">
   import { LogoApp } from '$lib/common';
+
+  const { children } = $props<{ children: import('svelte').Snippet }>();
 </script>
 
 <div class="auth-page">
@@ -13,7 +15,7 @@
       </p>
     </div>
 
-    <slot></slot>
+    {@render children()}
   </div>
 </div>
 

@@ -1,14 +1,21 @@
-<!-- packages/ui/src/icons/IconBase.svelte -->
 <script lang="ts">
-  export let size = 32;
+  import type { Snippet } from 'svelte';
+
+  const { size = 32, className = '', children, ...rest } = $props<{
+    size?: number;
+    className?: string;
+    children?: Snippet;
+  }>();
 </script>
 
 <svg
+  class={className}
   width={size}
   height={size}
   fill="transparent"
   viewBox="0 0 24 24"
   aria-hidden="true"
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </svg>

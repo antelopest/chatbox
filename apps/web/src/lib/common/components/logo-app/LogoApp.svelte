@@ -3,7 +3,9 @@
 </script>
 
 <div class="logo">
-  <ChatBubbleIcon></ChatBubbleIcon>
+  <span class="logo__icon">
+    <ChatBubbleIcon size={32}></ChatBubbleIcon>
+  </span>
   <h3 class="logo__title">Chatbox</h3>
 </div>
 
@@ -16,6 +18,11 @@
     &__title {
       font-size: 1.4rem;
       font-weight: var(--font-weight-bold);
+    }
+
+    &__icon {
+      display: flex;
+      color: var(--color-primary);
     }
   }
 </style>

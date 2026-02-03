@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "zod": "^4.2.1",
-    "@packages/validators": "workspace:*"
+    "@packages/validators": "workspace:*",
+    "@packages/types": "workspace:*"
   }
 }

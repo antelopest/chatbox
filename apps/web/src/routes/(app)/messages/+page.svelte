@@ -47,13 +47,10 @@
   }
 </style> -->
 
-<script>
-  import { PageHeader } from '$lib/common';
+<script lang="ts">
 </script>
 
 <section class="messages-page">
-  <PageHeader title="Messages"></PageHeader>
-
   <div class="messages-page__main"></div>
 </section>
 

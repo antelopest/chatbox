@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let title: string = '';
+  const { title = '' } = $props<{ title?: string }>();
 </script>
 
 <div class="header">

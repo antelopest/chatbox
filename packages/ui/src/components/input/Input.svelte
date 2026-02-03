@@ -1,32 +1,56 @@
 <script lang="ts">
-  export let value = '';
-  export let label: string | undefined = undefined;
-  export let hint: string | undefined = undefined;
-  export let error: string | undefined = undefined;
-  export let id: string | undefined = undefined;
-  export let name: string | undefined = undefined;
-  export let type = 'text';
-  export let placeholder: string | undefined = undefined;
-  export let disabled = false;
-  export let readonly = false;
-  export let required = false;
-  export let autocomplete: string | undefined = undefined;
-  export let inputmode:
-    | 'text'
-    | 'email'
-    | 'tel'
-    | 'url'
-    | 'numeric'
-    | 'decimal'
-    | 'search'
-    | undefined = undefined;
+  import type { Snippet } from 'svelte';
 
-  const inputId = id ?? name;
-  const hintId = inputId ? `${inputId}-hint` : undefined;
-  const errorId = inputId ? `${inputId}-error` : undefined;
-  const describedBy = [hint ? hintId : undefined, error ? errorId : undefined]
-    .filter(Boolean)
-    .join(' ');
+  const {
+    value = $bindable(''),
+    label,
+    hint,
+    error,
+    id,
+    name,
+    type = 'text',
+    placeholder,
+    disabled = false,
+    readonly = false,
+    required = false,
+    autocomplete,
+    inputmode,
+    prefix,
+    suffix,
+    ...rest
+  } = $props<{
+    value?: string;
+    label?: string;
+    hint?: string;
+    error?: string;
+    id?: string;
+    name?: string;
+    type?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    required?: boolean;
+    autocomplete?: string;
+    inputmode?:
+      | 'text'
+      | 'email'
+      | 'tel'
+      | 'url'
+      | 'numeric'
+      | 'decimal'
+      | 'search';
+    prefix?: Snippet;
+    suffix?: Snippet;
+  }>();
+
+  const inputId = $derived(id ?? name);
+  const hintId = $derived(inputId ? `${inputId}-hint` : undefined);
+  const errorId = $derived(inputId ? `${inputId}-error` : undefined);
+  const describedBy = $derived(
+    [hint ? hintId : undefined, error ? errorId : undefined]
+      .filter(Boolean)
+      .join(' '),
+  );
 </script>
 
 <div class="field">
@@ -50,7 +74,7 @@
   {/if}
 
   <div class="control {error ? 'has-error' : ''}">
-    <slot name="prefix" />
+    {@render prefix?.()}
     <input
       class="input"
       bind:value
@@ -65,9 +89,9 @@
       {inputmode}
       aria-invalid={error ? 'true' : 'false'}
       aria-describedby={describedBy || undefined}
-      {...$$restProps}
+      {...rest}
     />
-    <slot name="suffix" />
+    {@render suffix?.()}
   </div>
 
   {#if hint}

@@ -23,6 +23,7 @@
     "@nestjs/terminus": "^11.0.0",
     "@packages/contracts": "workspace:*",
     "@packages/validators": "workspace:*",
+    "@packages/types": "workspace:*",
     "argon2": "^0.44.0",
     "ioredis": "^5.9.1",
     "mongoose": "^9.1.1",

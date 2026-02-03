@@ -1,7 +1,9 @@
 <script lang="ts">
-  export let label: string;
-  export let size: number = 44;
-  export let bg: string = '#e2e8f0';
+  const { label = '', size = 44, bg = '#e2e8f0' } = $props<{
+    label?: string;
+    size?: number;
+    bg?: string;
+  }>();
 </script>
 
 <div
