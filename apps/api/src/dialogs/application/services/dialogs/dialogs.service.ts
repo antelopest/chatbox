@@ -1,7 +1,11 @@
 import { CreateDialogCommand } from '@dialogs/application/commands';
 import { DialogListItem } from '@dialogs/read-models';
 import { DialogsRepository } from '@dialogs/infrastructure/repositories';
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { Types } from 'mongoose';
 
 @Injectable()
@@ -23,10 +27,17 @@ export class DialogsService {
   }
 
   async createPrivateDialog(createDialogCommand: CreateDialogCommand) {
+    if (createDialogCommand.participantIds.length !== 2) {
+      throw new BadRequestException(
+        'Private dialog requires exactly 2 participants',
+      );
+    }
+
     const [participantIdA, participantIdB] = createDialogCommand.participantIds;
     await this.ensurePrivateDialogNotExists(participantIdA, participantIdB);
 
-    return this.dialogsRepository.create(createDialogCommand);
+    console.log(createDialogCommand);
+    return this.dialogsRepository.createPrivateDialog(createDialogCommand);
   }
 
   findPrivateDialogs(userObjectId: Types.ObjectId): Promise<DialogListItem[]> {

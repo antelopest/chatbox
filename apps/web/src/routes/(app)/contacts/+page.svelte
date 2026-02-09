@@ -4,6 +4,7 @@
   import { formatDate } from '$lib/common';
   import { dialogsApi } from '$lib/features/dialogs';
   import { SearchContacts } from '$lib/features/users';
+  import { Button, Avatar } from '@packages/ui';
 
   let selectedUser: UserResponse | undefined;
 
@@ -36,9 +37,7 @@
     {#if selectedUser}
       <div class="user-profile">
         <header class="user-profile__header">
-          <div class="user-profile__avatar">
-            {(selectedUser.username ?? '?').charAt(0).toUpperCase()}
-          </div>
+          <Avatar label={selectedUser.username ?? ''}></Avatar>
 
           <div>
             <div class="user-profile__name">
@@ -50,7 +49,27 @@
           </div>
         </header>
 
+        <div class="user-profile__actions">
+          <Button
+            type="button"
+            variant="primary"
+            size="sm"
+            disabled={creatingDialog}
+            onclick={startDialog}
+          >
+            {creatingDialog ? 'Creating…' : 'Create chat'}
+          </Button>
+
+          {#if dialogError}
+            <div class="user-profile__error">{dialogError}</div>
+          {/if}
+        </div>
+
         <div class="user-profile__details">
+          <div class="user-profile__row">
+            <span>Username</span>
+            <span>{selectedUser.username}</span>
+          </div>
           <div class="user-profile__row">
             <span>Email</span>
             <span>{selectedUser.email}</span>
@@ -60,23 +79,7 @@
             <span>{formatDate(selectedUser.createdAt)}</span>
           </div>
         </div>
-
-        <div class="user-profile__actions">
-          <button
-            class="btn btn--primary"
-            disabled={creatingDialog}
-            on:click={startDialog}
-          >
-            {creatingDialog ? 'Creating…' : 'Start chat'}
-          </button>
-        </div>
-
-        {#if dialogError}
-          <div class="user-profile__error">{dialogError}</div>
-        {/if}
       </div>
-    {:else}
-      <div class="contacts__placeholder">Select a user to view details</div>
     {/if}
   </div>
 </section>
@@ -96,11 +99,6 @@
     gap: 1rem;
     border-right: 1px solid var(--color-line);
     background: var(--surface);
-  }
-
-  .contacts__meta {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
   }
 
   .is-error {
@@ -137,9 +135,9 @@
   }
 
   .contacts__details {
-    padding: 2rem 2.5rem;
     display: flex;
     align-items: flex-start;
+    background: var(--color-second-bg);
   }
 
   .contacts__placeholder {
@@ -147,84 +145,44 @@
     font-size: 0.95rem;
   }
 
-  .user-avatar,
-  .user-profile__avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #cbd5f5;
-    color: #1e293b;
-    font-weight: 600;
-  }
-
-  .user-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-  }
-
-  .user-profile__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-  }
-
   .user-profile {
     width: min(520px, 100%);
-    border: 1px solid var(--border);
-    border-radius: 1.2rem;
     padding: 1.6rem;
-    background: var(--surface);
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
   }
 
   .user-profile__header {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
-    margin-bottom: 1.2rem;
+    gap: 1rem;
   }
 
   .user-profile__name {
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
     font-size: 1.05rem;
   }
 
   .user-profile__username {
+    font-weight: var(--font-weight-medium);
     color: var(--color-text-muted);
     font-size: 0.85rem;
   }
 
   .user-profile__details {
     display: grid;
-    gap: 0.6rem;
-    margin-bottom: 1.4rem;
+    gap: 1rem;
     font-size: 0.9rem;
   }
 
   .user-profile__row {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
     color: var(--color-text);
   }
 
-  .btn {
-    padding: 0.6rem 1rem;
-    border-radius: 0.6rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-  }
-
-  .btn--primary {
-    background: var(--color-primary);
-    color: #fff;
-    border: none;
-  }
-
-  .btn--ghost {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--color-text-muted);
+  .user-profile__error {
+    color: red;
   }
 </style>

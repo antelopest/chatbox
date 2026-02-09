@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { UserResponse } from '@packages/contracts';
-  import { SearchInput } from '@packages/ui';
+  import { Avatar, SearchInput } from '@packages/ui';
   import { useUserSearch } from '$lib/features/users/components/search-contacts';
 
   let { selectedUser = $bindable<UserResponse | undefined>() } = $props<{
@@ -73,15 +73,13 @@
           class="contacts-search__item {selectedUser?.id === user.id
             ? 'is-active'
             : ''}"
-          on:click={() => selectUser(user)}
+          onclick={() => selectUser(user)}
         >
-          <div class="user-avatar">
-            {(user.username ?? '?').charAt(0).toUpperCase()}
-          </div>
+          <Avatar label={user.username}></Avatar>
 
           <div class="user-info">
             <div class="user-info__name">
-              {user.profile?.displayName ?? user.username}
+              {user.username}
             </div>
             <div class="user-info__username">@{user.username}</div>
           </div>
@@ -91,7 +89,7 @@
   </div>
 
   {#if selectedUser}
-    <button class="contacts-search__clear" on:click={clear}>
+    <button class="contacts-search__clear" onclick={clear}>
       Clear selection
     </button>
   {/if}

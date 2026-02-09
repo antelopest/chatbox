@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { UserResponse } from '@packages/contracts';
   import { Input } from '@packages/ui';
-  import { formatDate, UserAvatar } from '$lib/common';
+  import { formatDate } from '$lib/common';
+  import { Avatar } from '@packages/ui';
 
   let { user } = $props<{
     user?: UserResponse;
@@ -13,7 +14,7 @@
 </script>
 
 <div class="card">
-  <UserAvatar></UserAvatar>
+  <Avatar label={username}></Avatar>
 
   <div class="fields">
     <Input label="Username" readonly value={username}></Input>

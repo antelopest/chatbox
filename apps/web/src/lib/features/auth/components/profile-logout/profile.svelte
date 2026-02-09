@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { UserAvatar } from '$lib/common';
   import { auth, clearAuth } from '$lib/stores';
   import { authApi } from '$lib/features/auth';
   import { goto } from '$app/navigation';
   import { APP_ROUTES } from '$lib/navigation';
+  import { Avatar } from '@packages/ui';
 
   $: username = $auth.user?.username
     ? $auth.user.username.charAt(0).toUpperCase() + $auth.user.username.slice(1)
@@ -20,14 +20,14 @@
 </script>
 
 <div class="profile">
-  <UserAvatar></UserAvatar>
+  <Avatar label={username}></Avatar>
   <div class="profile__info">
     <span class="profile__info-username">{username}</span>
     <button
       class="profile__info-logout"
       type="button"
       aria-label="Logout"
-      on:click={logout}>Logout</button
+      onclick={logout}>Logout</button
     >
   </div>
 </div>

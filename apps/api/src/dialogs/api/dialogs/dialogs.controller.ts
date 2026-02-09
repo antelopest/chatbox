@@ -29,11 +29,11 @@ export class DialogsController {
 
     const participantIds = new Set<string>([
       creatorId,
-      ...createDialog.participantIds,
+      ...createDialog.participants,
     ]);
 
     const createDialogCommand: CreateDialogCommand = {
-      participantIds: Array.from(participantIds).map(toObjectId),
+      participants: Array.from(participantIds).map(toObjectId),
       type: createDialog.type,
       title: createDialog.title,
     };

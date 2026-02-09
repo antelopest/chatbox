@@ -89,7 +89,7 @@
     <p class="submit-error">{submitError}</p>
   {/if}
 
-  <Button type="submit" disabled={loading}>Register</Button>
+  <Button type="submit" variant="primary" disabled={loading}>Register</Button>
 </form>
 
 <style lang="scss">

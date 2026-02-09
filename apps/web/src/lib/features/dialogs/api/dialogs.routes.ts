@@ -1,3 +1,4 @@
 export const DIALOGS_ROUTES = {
-  base: '/api/dialogs',
+  dialogs: '/api/dialogs',
+  createPrivateDialog: '/api/dialogs/private',
 } as const;

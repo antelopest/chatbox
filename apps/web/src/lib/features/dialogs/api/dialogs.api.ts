@@ -3,24 +3,25 @@ import type {
   DialogResponse,
   DialogsResponse,
 } from '@packages/contracts';
-import { http } from '$lib/common/services/http';
 
 import { DIALOGS_ROUTES } from './dialogs.routes';
 
+import { http } from '$lib/common';
+
 export const dialogsApi = {
   list() {
-    return http<DialogsResponse>(DIALOGS_ROUTES.base, {
+    return http<DialogsResponse>(DIALOGS_ROUTES.dialogs, {
       method: 'GET',
     });
   },
-  createPrivate(participantIds: string[], title?: string) {
+  createPrivate(participants: string[], title?: string) {
     const payload: CreateDialog = {
-      participantIds,
+      participants,
       type: 'private',
       title,
     };
 
-    return http<DialogResponse>(DIALOGS_ROUTES.base, {
+    return http<DialogResponse>(DIALOGS_ROUTES.createPrivateDialog, {
       method: 'POST',
       body: payload,
     });

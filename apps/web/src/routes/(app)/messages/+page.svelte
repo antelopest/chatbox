@@ -144,7 +144,7 @@
             <button
               class="chat-card {selectedDialogId === chat.id ? 'active' : ''}"
               type="button"
-              on:click={() => (selectedDialogId = chat.id)}
+              onclick={() => (selectedDialogId = chat.id)}
             >
               <div class="chat-avatar">{chat.avatar}</div>
               <div class="chat-body">
