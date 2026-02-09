@@ -13,6 +13,7 @@ export const authApi = {
     return http<AuthResponse>(AUTH_ROUTES.register, {
       method: 'POST',
       body: data,
+      skipAuthRefresh: true,
     });
   },
 
@@ -20,18 +21,21 @@ export const authApi = {
     return http<AuthResponse>(AUTH_ROUTES.login, {
       method: 'POST',
       body: data,
+      skipAuthRefresh: true,
     });
   },
 
   refresh() {
     return http<AuthResponse>(AUTH_ROUTES.refresh, {
-      method: 'POST',
+      method: 'GET',
+      skipAuthRefresh: true,
     });
   },
 
   logout() {
     return http<void>(AUTH_ROUTES.logout, {
-      method: 'POST',
+      method: 'GET',
+      skipAuthRefresh: true,
     });
   },
 };

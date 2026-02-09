@@ -21,12 +21,12 @@
   });
 </script>
 
-<div class="app-page">
-  <aside class="app-page__sidebar">
+<div class="app">
+  <aside class="app__sidebar">
     <Sidebar />
   </aside>
 
-  <main class="app-page__content">
+  <main class="app__content">
     <PageHeader title={activeNav?.title ?? '...'}></PageHeader>
 
     {@render children()}
@@ -34,10 +34,10 @@
 </div>
 
 <style lang="scss">
-  .app-page {
+  .app {
     min-height: 100svh;
     display: grid;
     grid-template-columns: 280px 1fr;
-    background: var(--color-second-bg);
+    background: var(--color-bg);
   }
 </style>

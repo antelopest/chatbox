@@ -30,7 +30,9 @@
       "@changelog/*": ["src/changelog/*"],
       "@config/*": ["src/config/*"],
       "@dialogs/*": ["src/dialogs/*"],
-      "@infrastructure/*": ["src/infrastructure/*"]
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@packages/types": ["../packages/types/src/index.ts"],
+      "@packages/types/*": ["../packages/types/src/*"]
     }
   },
   "include": ["src"]

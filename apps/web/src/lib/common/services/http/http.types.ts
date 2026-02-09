@@ -3,4 +3,5 @@ export interface HttpRequestOptions {
   body?: unknown;
   headers?: Record<string, string>;
   credentials?: RequestCredentials;
+  skipAuthRefresh?: boolean;
 }

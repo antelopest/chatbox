@@ -4,10 +4,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { MongoConnection } from '@infrastructure/mongo';
 
-import { DialogsController } from '@dialogs/controllers';
-import { Dialog, DialogSchema } from '@dialogs/schemas';
-import { DialogsService } from '@dialogs/services';
-import { DialogsRepository } from '@dialogs/repositories';
+import { DialogsController } from '@dialogs/api';
+import { Dialog, DialogSchema } from '@dialogs/infrastructure/schemas';
+import { DialogsService } from '@dialogs/application/services';
+import { DialogsRepository } from '@dialogs/infrastructure/repositories';
 
 @Module({
   controllers: [DialogsController],

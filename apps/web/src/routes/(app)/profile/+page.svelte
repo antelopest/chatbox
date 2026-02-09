@@ -1,43 +1,29 @@
 <script lang="ts">
-  import { UserAvatar, formatDate } from '$lib/common';
-  import { Input } from '@packages/ui';
+  import type { UserResponse } from '@packages/contracts';
+  import { browser } from '$app/environment';
+  import { ProfileCard } from '$lib/common/components';
+  import { setUser } from '$lib/stores';
 
-  import { auth } from '$lib/stores';
+  const { data } = $props<{
+    data: { user?: UserResponse };
+  }>();
 
-  let username = '';
-  let email = '';
-  let createdAt = '';
-
-  $: username = $auth.user?.username ?? '';
-  $: email = $auth.user?.email ?? '';
-  $: createdAt = formatDate($auth.user?.createdAt) ?? '';
+  $effect(() => {
+    if (browser && data?.user) {
+      setUser(data.user);
+    }
+  });
 </script>
 
-<section class="profile-page">
-  <div class="profile-page__main">
-    <UserAvatar></UserAvatar>
-
-    <div class="profile-page__card">
-      <Input label="Username" readonly bind:value={username}></Input>
-      <Input label="Email" readonly bind:value={email}></Input>
-      <Input label="Created" readonly bind:value={createdAt}></Input>
-    </div>
-  </div>
+<section class="profile">
+  <ProfileCard user={data?.user}></ProfileCard>
 </section>
 
 <style lang="scss">
-  .profile-page__main {
-    padding: 2rem 1.5rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .profile-page__card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 350px;
+  .profile {
+    height: calc(100svh - 96px);
+    display: grid;
+    grid-template-columns: 350px;
+    background: var(--color-second-bg);
   }
 </style>

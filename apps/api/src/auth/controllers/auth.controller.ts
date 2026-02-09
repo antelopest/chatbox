@@ -78,7 +78,7 @@ export class AuthController {
     };
   }
 
-  @Post('refresh')
+  @Get('refresh')
   @UseGuards(RefreshJwtAuthGuard)
   async refresh(
     @Req()
@@ -95,7 +95,7 @@ export class AuthController {
     return authTokens;
   }
 
-  @Post('logout')
+  @Get('logout')
   @UseGuards(RefreshJwtAuthGuard)
   logout(
     @Req()

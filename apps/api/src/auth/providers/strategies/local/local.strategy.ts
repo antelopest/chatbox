@@ -3,7 +3,7 @@ import { Strategy } from 'passport-local';
 import { AuthService } from 'src/auth/services/auth/auth.service';
 
 import { AuthProvidersEnum } from 'src/auth/providers/enums/auth-providers.enum';
-import { type UserEntity } from '@users/entities';
+import { type UserEntity } from '@users/domain/entities';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

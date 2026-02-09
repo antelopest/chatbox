@@ -1,4 +1,4 @@
-import { UsersService } from '@users/services';
+import { UsersService } from '@users/application/services';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -12,10 +12,9 @@ import type {
 
 import type { ConfigType } from '@nestjs/config';
 
-import { type CreateUserCommand } from '@users/commands';
+import { type CreateUserCommand } from '@users/application/commands';
 import { ErrorCode } from '@common/errors';
-import { type UserEntity } from '@users/entities';
-import { UserMapper } from '@users/mapper/user.mapper';
+import { type UserEntity } from '@users/domain/entities';
 import { authConfig } from '@config/configuration';
 import {
   type AccessJwtPayload,
@@ -23,6 +22,7 @@ import {
 } from 'src/auth/security/types';
 import { randomUUID } from 'crypto';
 import { RefreshTokenStorage } from '@auth/security/storages';
+import { UserResponseMapper } from '@users/application/mappers';
 
 @Injectable()
 export class AuthService {
@@ -128,7 +128,7 @@ export class AuthService {
   async login(userEntity: UserEntity): Promise<AuthResponse> {
     const AuthResponse: AuthResponse = {
       tokens: await this.issueTokens(userEntity),
-      user: UserMapper.toResponse(userEntity),
+      user: UserResponseMapper.toResponse(userEntity),
     };
 
     return AuthResponse;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  const {
+  let {
     value = $bindable(''),
     label,
     hint,

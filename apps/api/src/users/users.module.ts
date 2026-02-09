@@ -3,10 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { MongoConnection } from '@infrastructure/mongo';
-import { User, UserSchema } from '@users/schemas/user.schema';
-import { UsersService } from '@users/services';
-import { UsersRepository } from '@users/repositories';
-import { UsersController } from '@users/controllers';
+
+import { User, UserSchema } from '@users/infrastructure/schemas';
+import { UsersService } from '@users/application/services';
+import { UsersRepository } from '@users/infrastructure/repositories';
+import { UsersController } from '@users/api';
 
 @Module({
   controllers: [UsersController],

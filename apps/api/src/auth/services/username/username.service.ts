@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '@users/services';
+import { UsersService } from '@users/application/services';
 import { randomBytes } from 'crypto';
 
 @Injectable()

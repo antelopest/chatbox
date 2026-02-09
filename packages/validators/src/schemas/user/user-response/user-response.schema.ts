@@ -1,12 +1,12 @@
 import * as z from 'zod';
 
-import { UserProfileResponseSchema } from '../user-profile-response/user-profile-response.schema';
-import { EmailSchema } from '../../../constraints/email/email.schema';
+import { ProfileResponseSchema } from '../profile-response/profile-response.schema';
+import { EmailSchema } from '../../../constraints';
 
 export const UserResponseSchema = z.object({
   id: z.string(),
   email: EmailSchema,
-  profile: UserProfileResponseSchema,
+  profile: ProfileResponseSchema,
   username: z.string().nullable(),
   createdAt: z.date(),
 });
