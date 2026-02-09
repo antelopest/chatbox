@@ -7,7 +7,7 @@ export const DialogResponseSchema = z.object({
   id: z.string(),
   type: z.enum(dialogTypes),
   title: z.string().nullable(),
-  participantIds: z.array(z.string()),
+  participants: z.array(z.string()),
   updatedAt: z.string(),
 });
 

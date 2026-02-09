@@ -27,13 +27,13 @@ export class DialogsService {
   }
 
   async createPrivateDialog(createDialogCommand: CreateDialogCommand) {
-    if (createDialogCommand.participantIds.length !== 2) {
+    if (createDialogCommand.participants.length !== 2) {
       throw new BadRequestException(
         'Private dialog requires exactly 2 participants',
       );
     }
 
-    const [participantIdA, participantIdB] = createDialogCommand.participantIds;
+    const [participantIdA, participantIdB] = createDialogCommand.participants;
     await this.ensurePrivateDialogNotExists(participantIdA, participantIdB);
 
     console.log(createDialogCommand);

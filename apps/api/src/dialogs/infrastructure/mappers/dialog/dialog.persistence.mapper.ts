@@ -7,7 +7,7 @@ export class DialogPersistenceMapper {
       id: doc._id.toString(),
       type: doc.type,
       title: doc.title,
-      participantIds: doc.participants.map(String),
+      participants: doc.participants.map(String),
       updatedAt: doc.updatedAt,
     });
   }

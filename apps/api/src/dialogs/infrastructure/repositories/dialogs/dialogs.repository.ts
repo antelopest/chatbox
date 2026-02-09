@@ -20,11 +20,7 @@ export class DialogsRepository {
   async createPrivateDialog(
     createDialogCommand: CreateDialogCommand,
   ): Promise<DialogEntity> {
-    const { participantIds, ...rest } = createDialogCommand;
-    const doc = await this.dialogModel.create({
-      ...rest,
-      participants: participantIds,
-    });
+    const doc = await this.dialogModel.create(createDialogCommand);
     return DialogPersistenceMapper.toEntity(doc);
   }
 
