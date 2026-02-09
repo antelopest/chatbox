@@ -1,4 +1,3 @@
-// infrastructure/repositories/users/user.persistence.mapper.ts
 import { type UserDocument } from '@users/infrastructure/schemas';
 import { UserEntity } from '@users/domain/entities';
 

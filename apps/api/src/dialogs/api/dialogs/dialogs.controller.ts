@@ -16,16 +16,17 @@ export class DialogsController {
     const userId = accessPayloadRequest.user.userId;
     const userObjectId = toObjectId(userId);
 
-    return this.dialogsService.findDialogs(userObjectId);
+    return this.dialogsService.findPrivateDialogs(userObjectId);
   }
 
-  @Post()
+  @Post('private')
   @UseGuards(AccessJwtAuthGuard)
   create(
     @Req() accessPayloadRequest: AccessPayloadRequest,
     @Body() createDialog: CreateDialog,
   ) {
     const creatorId = accessPayloadRequest.user.userId;
+
     const participantIds = new Set<string>([
       creatorId,
       ...createDialog.participantIds,
@@ -37,6 +38,6 @@ export class DialogsController {
       title: createDialog.title,
     };
 
-    return this.dialogsService.create(createDialogCommand);
+    return this.dialogsService.createPrivateDialog(createDialogCommand);
   }
 }

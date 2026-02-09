@@ -1,1 +1,1 @@
-// Placeholder for future mappers
+export * from './dialog/dialog.persistence.mapper';

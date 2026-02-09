@@ -1,9 +1,19 @@
 import { DialogType } from '@packages/types';
 
-export interface DialogEntity {
-  id: string;
-  type: DialogType;
-  title: string;
-  participantIds: string[];
-  updatedAt: Date;
+export class DialogEntity {
+  readonly id: string;
+  readonly type: DialogType;
+  readonly title: string | null;
+  readonly participantIds: string[];
+  readonly updatedAt: Date;
+
+  constructor(params: {
+    id: string;
+    type: DialogType;
+    title: string | null;
+    participantIds: string[];
+    updatedAt: Date;
+  }) {
+    Object.assign(this, params);
+  }
 }

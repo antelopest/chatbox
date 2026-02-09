@@ -6,6 +6,9 @@ import { Dialog, DialogDocument } from '@dialogs/infrastructure/schemas';
 import { MongoConnection } from '@infrastructure/mongo';
 import { CreateDialogCommand } from '@dialogs/application/commands';
 import { DialogListItem } from '@dialogs/read-models';
+import { DialogEntity } from '@dialogs/domain';
+import { DialogPersistenceMapper } from '@dialogs/infrastructure';
+import { DialogType } from '@packages/types';
 
 @Injectable()
 export class DialogsRepository {
@@ -14,15 +17,26 @@ export class DialogsRepository {
     private readonly dialogModel: Model<DialogDocument>,
   ) {}
 
-  create(createDialogCommand: CreateDialogCommand) {
-    return this.dialogModel.create({
-      participants: createDialogCommand.participantIds,
-      type: createDialogCommand.type,
-      title: createDialogCommand.title ?? null,
-    });
+  async create(
+    createDialogCommand: CreateDialogCommand,
+  ): Promise<DialogEntity> {
+    const doc = await this.dialogModel.create(createDialogCommand);
+    return DialogPersistenceMapper.toEntity(doc);
   }
 
-  findByParticipant(userObjectId: Types.ObjectId): Promise<DialogListItem[]> {
+  async findExistPrivateDialog(
+    participantIdA: Types.ObjectId,
+    participantIdB: Types.ObjectId,
+  ): Promise<DialogEntity | null> {
+    const doc = await this.dialogModel.findOne({
+      type: DialogType.PRIVATE,
+      participants: { $all: [participantIdA, participantIdB] },
+    });
+
+    return doc ? DialogPersistenceMapper.toEntity(doc) : null;
+  }
+
+  findByParticipantId(userObjectId: Types.ObjectId): Promise<DialogListItem[]> {
     return this.dialogModel
       .aggregate<DialogListItem>([
         { $match: { participants: userObjectId } },
@@ -65,34 +79,4 @@ export class DialogsRepository {
       ])
       .exec();
   }
-
-  // findByUser(userId: string) {
-  //   const userObjectId = new Types.ObjectId(userId);
-  //   return this.dialogModel
-  //     .find({ participants: userObjectId })
-  //     .sort({ updatedAt: -1 })
-  //     .lean();
-  // }
-
-  // findPrivateBetween(userA: string, userB: string) {
-  //   const userAId = new Types.ObjectId(userA);
-  //   const userBId = new Types.ObjectId(userB);
-  //   return this.dialogModel.findOne({
-  //     type: 'private',
-  //     participants: { $all: [userAId, userBId] },
-  //   });
-  // }
-
-  // createPrivate(userA: string, userB: string) {
-  //   const userAId = new Types.ObjectId(userA);
-  //   const userBId = new Types.ObjectId(userB);
-  //   return this.dialogModel.create({
-  //     type: 'private',
-  //     participants: [userAId, userBId],
-  //   });
-  // }
-
-  // findById(dialogId: string) {
-  //   return this.dialogModel.findById(dialogId);
-  // }
 }
