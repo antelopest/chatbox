@@ -5,7 +5,7 @@ import { Model, Types } from 'mongoose';
 import { Dialog, DialogDocument } from '@dialogs/infrastructure/schemas';
 import { MongoConnection } from '@infrastructure/mongo';
 import { CreateDialogCommand } from '@dialogs/application/commands';
-import { DialogListItem } from '@dialogs/read-models';
+import { PrivateDialog } from '@dialogs/read-models';
 import { DialogEntity } from '@dialogs/domain';
 import { DialogPersistenceMapper } from '@dialogs/infrastructure';
 import { DialogType } from '@packages/types';
@@ -36,39 +36,95 @@ export class DialogsRepository {
     return doc ? DialogPersistenceMapper.toEntity(doc) : null;
   }
 
-  findByParticipantId(userObjectId: Types.ObjectId): Promise<DialogListItem[]> {
+  findByParticipantId(userObjectId: Types.ObjectId): Promise<PrivateDialog[]> {
     return this.dialogModel
-      .aggregate<DialogListItem>([
-        { $match: { participants: userObjectId } },
+      .aggregate<PrivateDialog>([
         {
-          $lookup: {
-            from: 'users',
-            localField: 'participants',
-            foreignField: '_id',
-            as: 'participantUsers',
+          $match: {
+            type: DialogType.PRIVATE,
+            participants: userObjectId,
           },
         },
         {
-          $project: {
-            _id: 0,
-            id: { $toString: '$_id' },
-            type: 1,
-            title: { $ifNull: ['$title', null] },
-            updatedAt: 1,
-            participants: {
-              $map: {
-                input: '$participantUsers',
-                as: 'participant',
-                in: {
-                  id: { $toString: '$$participant._id' },
-                  username: '$$participant.username',
-                  displayName: '$$participant.profile.displayName',
+          $addFields: {
+            otherParticipantId: {
+              $first: {
+                $filter: {
+                  input: '$participants',
+                  cond: { $ne: ['$$this', userObjectId] },
                 },
               },
             },
           },
         },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'otherParticipantId',
+            foreignField: '_id',
+            as: 'participant',
+          },
+        },
+        {
+          $lookup: {
+            from: 'messages',
+            let: { messageId: '$lastMessageId' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: { $eq: ['$_id', '$$messageId'] },
+                },
+              },
+              {
+                $project: {
+                  _id: 1,
+                  text: 1,
+                  createdAt: 1,
+                },
+              },
+            ],
+            as: 'lastMessage',
+          },
+        },
         { $sort: { updatedAt: -1 } },
+        {
+          $project: {
+            _id: 0,
+            id: { $toString: '$_id' },
+            type: 1,
+
+            participant: {
+              $let: {
+                vars: {
+                  user: { $arrayElemAt: ['$participant', 0] },
+                },
+                in: {
+                  id: { $toString: '$$user._id' },
+                  username: '$$user.username',
+                },
+              },
+            },
+
+            lastMessage: {
+              $let: {
+                vars: {
+                  msg: { $arrayElemAt: ['$lastMessage', 0] },
+                },
+                in: {
+                  id: { $toString: '$$msg._id' },
+                  text: { $ifNull: ['$$msg.text', ''] },
+                  createdAt: {
+                    $cond: [
+                      { $ifNull: ['$$msg.createdAt', false] },
+                      { $toString: '$$msg.createdAt' },
+                      null,
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        },
       ])
       .exec();
   }

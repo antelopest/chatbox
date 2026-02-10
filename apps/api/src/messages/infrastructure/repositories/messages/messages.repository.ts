@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 
 @Injectable()
-export class MessageRepository {
+export class MessagesRepository {
   constructor(
     @InjectModel(Message.name, MongoConnection.MAIN)
     private readonly messageModel: Model<MessageDocument>,

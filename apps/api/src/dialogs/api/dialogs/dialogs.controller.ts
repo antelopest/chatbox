@@ -1,17 +1,27 @@
 import { AccessJwtAuthGuard } from '@auth/security/guards';
+import { ZodValidationPipe } from '@common/pipes';
 import { AccessPayloadRequest } from '@common/types';
 import { toObjectId } from '@common/utils';
 import { CreateDialogCommand } from '@dialogs/application/commands';
 import { DialogsService } from '@dialogs/application/services';
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
 import { CreateDialog } from '@packages/contracts';
+import { CreateDialogSchema } from '@packages/validators';
 
 @Controller('dialogs')
+@UseGuards(AccessJwtAuthGuard)
 export class DialogsController {
   constructor(private readonly dialogsService: DialogsService) {}
 
   @Get()
-  @UseGuards(AccessJwtAuthGuard)
   findDialogs(@Req() accessPayloadRequest: AccessPayloadRequest) {
     const userId = accessPayloadRequest.user.userId;
     const userObjectId = toObjectId(userId);
@@ -20,7 +30,7 @@ export class DialogsController {
   }
 
   @Post('private')
-  @UseGuards(AccessJwtAuthGuard)
+  @UsePipes(new ZodValidationPipe(CreateDialogSchema))
   create(
     @Req() accessPayloadRequest: AccessPayloadRequest,
     @Body() createDialog: CreateDialog,

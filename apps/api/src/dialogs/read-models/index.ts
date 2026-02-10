@@ -1,1 +1,1 @@
-export * from './dialog-list/dialog-list-item.read-model';
+export * from './private-dialogs/private-dialogs.read-model';

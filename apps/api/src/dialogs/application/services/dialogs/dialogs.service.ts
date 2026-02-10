@@ -1,5 +1,5 @@
 import { CreateDialogCommand } from '@dialogs/application/commands';
-import { DialogListItem } from '@dialogs/read-models';
+import { PrivateDialog } from '@dialogs/read-models';
 import { DialogsRepository } from '@dialogs/infrastructure/repositories';
 import {
   BadRequestException,
@@ -40,7 +40,7 @@ export class DialogsService {
     return this.dialogsRepository.createPrivateDialog(createDialogCommand);
   }
 
-  findPrivateDialogs(userObjectId: Types.ObjectId): Promise<DialogListItem[]> {
+  findPrivateDialogs(userObjectId: Types.ObjectId): Promise<PrivateDialog[]> {
     return this.dialogsRepository.findByParticipantId(userObjectId);
   }
 }
