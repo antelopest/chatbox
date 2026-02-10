@@ -1,52 +1,3 @@
-<!-- <script lang="ts">
-  import ChatList from '$lib/widgets/chat/ChatList.svelte';
-  import ChatRoom from '$lib/widgets/chat/ChatRoom.svelte';
-
-  let selectedChatId: string | null = null;
-</script>
-
-<div class="messages-page">
-  <section class="messages-page__list">
-    <ChatList bind:selectedChatId />
-  </section>
-
-  <section class="messages-page__room">
-    {#if selectedChatId}
-      <ChatRoom chatId={selectedChatId} />
-    {:else}
-      <div class="placeholder muted">Select a chat</div>
-    {/if}
-  </section>
-</div>
-
-<style lang="scss">
-  .messages-page {
-    height: calc(100svh - 48px);
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    background: var(--bg-app);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-
-  .messages-page__list {
-    background: var(--bg-panel);
-    border-right: 1px solid var(--border);
-  }
-
-  .messages-page__room {
-    background: var(--bg-muted);
-  }
-
-  .placeholder {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-  }
-</style> -->
-
 <script lang="ts">
   import type { DialogResponse } from '@packages/contracts';
   import { formatDate } from '$lib/common';
@@ -171,13 +122,7 @@
           <div class="room-avatar">O</div>
           <div>
             <div class="room-name">Odama Studio</div>
-            <div class="room-status">Mas Happy typing...</div>
           </div>
-        </div>
-        <div class="room-actions">
-          <button class="icon-btn" aria-label="Search">🔍</button>
-          <button class="icon-btn" aria-label="Call">📞</button>
-          <button class="icon-btn" aria-label="More">⋯</button>
         </div>
       </header>
 
@@ -235,23 +180,9 @@
     font-weight: 700;
   }
 
-  .list-subtitle {
-    font-size: 0.75rem;
-    color: #9aa4b2;
-  }
-
   .list-actions {
     display: flex;
     gap: 0.4rem;
-  }
-
-  .icon-btn {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.6rem;
-    border: 1px solid #e6eaf0;
-    background: #fff;
-    cursor: pointer;
   }
 
   .chat-items {
@@ -369,16 +300,6 @@
 
   .room-name {
     font-weight: 600;
-  }
-
-  .room-status {
-    font-size: 0.75rem;
-    color: #94a3b8;
-  }
-
-  .room-actions {
-    display: flex;
-    gap: 0.4rem;
   }
 
   .room-body {

@@ -37,7 +37,7 @@
     {#if selectedUser}
       <div class="user-profile">
         <header class="user-profile__header">
-          <Avatar label={selectedUser.username ?? ''}></Avatar>
+          <Avatar label={selectedUser.username ?? ''} />
 
           <div>
             <div class="user-profile__name">
@@ -101,48 +101,10 @@
     background: var(--surface);
   }
 
-  .is-error {
-    color: var(--color-red);
-  }
-
-  .is-loading {
-    color: var(--color-primary);
-  }
-
-  .contacts__list {
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  .contacts__user {
-    display: flex;
-    gap: 0.8rem;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 0.8rem;
-    background: var(--surface);
-    cursor: pointer;
-    transition: 0.15s ease;
-  }
-
-  .contacts__user:hover {
-    transform: translateY(-1px);
-  }
-
-  .contacts__user.is-active {
-    border-color: var(--color-primary);
-    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.15);
-  }
-
   .contacts__details {
     display: flex;
     align-items: flex-start;
     background: var(--color-second-bg);
-  }
-
-  .contacts__placeholder {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
   }
 
   .user-profile {

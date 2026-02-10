@@ -1,6 +1,6 @@
 export function formatDate(
   value?: string | number | Date | null,
-  locale = 'ru-RU',
+  locale = 'en-US',
   options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',

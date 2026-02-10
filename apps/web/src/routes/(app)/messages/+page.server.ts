@@ -1,8 +1,6 @@
-import { DIALOGS_ROUTES } from '$lib/features/dialogs/api/dialogs.routes.js';
-
 import type { DialogsResponse } from '@packages/contracts';
 
-const API_BASE = 'http://localhost:3000';
+import { DIALOGS_ROUTES } from '$lib/features/dialogs/api/dialogs.routes.js';
 
 export const load = async ({
   fetch,
@@ -17,13 +15,10 @@ export const load = async ({
     });
 
     if (!res.ok) {
-      const text = await res.text().catch(() => '');
-      console.log('dialogs fetch failed:', res.status, text);
       return {};
     }
 
     const dialogs = (await res.json()) as DialogsResponse;
-    console.log('dialogs:', dialogs);
     return { dialogs };
   } catch {
     return {};

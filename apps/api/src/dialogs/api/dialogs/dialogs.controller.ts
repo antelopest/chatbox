@@ -27,13 +27,13 @@ export class DialogsController {
   ) {
     const creatorId = accessPayloadRequest.user.userId;
 
-    const participantIds = new Set<string>([
+    const participants = new Set<string>([
       creatorId,
       ...createDialog.participants,
     ]);
 
     const createDialogCommand: CreateDialogCommand = {
-      participants: Array.from(participantIds).map(toObjectId),
+      participants: Array.from(participants).map(toObjectId),
       type: createDialog.type,
       title: createDialog.title,
     };

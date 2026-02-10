@@ -8,7 +8,7 @@ export class DialogMapper {
       id: dialogEntity.id,
       type: dialogEntity.type,
       title: dialogEntity.title,
-      participantIds: dialogEntity.participants,
+      participants: dialogEntity.participants,
       updatedAt: dialogEntity.updatedAt.toISOString(),
     });
 

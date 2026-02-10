@@ -10,7 +10,6 @@ export interface DialogListItem {
   id: string;
   type: DialogType;
   title: string | null;
-  participantIds: string[];
   participants: DialogParticipantPreview[];
   updatedAt: Date;
 }

@@ -75,7 +75,7 @@
             : ''}"
           onclick={() => selectUser(user)}
         >
-          <Avatar label={user.username}></Avatar>
+          <Avatar label={user.username ?? ''} />
 
           <div class="user-info">
             <div class="user-info__name">
@@ -163,19 +163,6 @@
   .contacts-search__clear:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
-  }
-
-  .user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #cbd5f5;
-    color: #1e293b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.85rem;
   }
 
   .user-info {

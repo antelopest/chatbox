@@ -14,10 +14,5 @@
     gap: 2rem;
   }
 
-  .messages-page__card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 350px;
-  }
+
 </style>

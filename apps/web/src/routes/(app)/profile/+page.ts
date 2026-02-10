@@ -1,5 +1,6 @@
-import { browser } from '$app/environment';
 import type { UserResponse } from '@packages/contracts';
+
+import { browser } from '$app/environment';
 import { usersApi } from '$lib/features/users';
 
 export const load = async ({ parent }): Promise<{ user?: UserResponse }> => {

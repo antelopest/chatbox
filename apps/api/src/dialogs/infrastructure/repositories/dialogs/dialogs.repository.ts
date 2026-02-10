@@ -55,13 +55,6 @@ export class DialogsRepository {
             type: 1,
             title: { $ifNull: ['$title', null] },
             updatedAt: 1,
-            participantIds: {
-              $map: {
-                input: '$participants',
-                as: 'participantId',
-                in: { $toString: '$$participantId' },
-              },
-            },
             participants: {
               $map: {
                 input: '$participantUsers',
