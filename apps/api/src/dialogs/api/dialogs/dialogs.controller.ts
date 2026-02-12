@@ -4,6 +4,7 @@ import { AccessPayloadRequest } from '@common/types';
 import { toObjectId } from '@common/utils';
 import { CreateDialogCommand } from '@dialogs/application/commands';
 import { DialogsService } from '@dialogs/application/services';
+import { DialogsReadService } from '@dialogs/read-models/services/dialogs-read/dialogs-read.service';
 import {
   Body,
   Controller,
@@ -19,14 +20,17 @@ import { CreateDialogSchema } from '@packages/validators';
 @Controller('dialogs')
 @UseGuards(AccessJwtAuthGuard)
 export class DialogsController {
-  constructor(private readonly dialogsService: DialogsService) {}
+  constructor(
+    private readonly dialogsService: DialogsService,
+    private readonly dialogsReadService: DialogsReadService,
+  ) {}
 
   @Get()
   findDialogs(@Req() accessPayloadRequest: AccessPayloadRequest) {
     const userId = accessPayloadRequest.user.userId;
     const userObjectId = toObjectId(userId);
 
-    return this.dialogsService.findPrivateDialogs(userObjectId);
+    return this.dialogsReadService.findPrivateDialogsByUserId(userObjectId);
   }
 
   @Post('private')

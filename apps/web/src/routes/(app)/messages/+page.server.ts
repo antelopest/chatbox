@@ -1,11 +1,11 @@
-import type { DialogsResponse } from '@packages/contracts';
+import type { PrivateDialogsResponse } from '@packages/contracts';
 
 import { DIALOGS_ROUTES } from '$lib/features/dialogs/api/dialogs.routes.js';
 
 export const load = async ({
   fetch,
   request,
-}): Promise<{ dialogs?: DialogsResponse }> => {
+}): Promise<{ dialogs?: PrivateDialogsResponse }> => {
   try {
     const res = await fetch(DIALOGS_ROUTES.dialogs, {
       method: 'GET',
@@ -18,7 +18,7 @@ export const load = async ({
       return {};
     }
 
-    const dialogs = (await res.json()) as DialogsResponse;
+    const dialogs = (await res.json()) as PrivateDialogsResponse;
     return { dialogs };
   } catch {
     return {};

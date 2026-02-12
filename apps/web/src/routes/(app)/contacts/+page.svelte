@@ -88,12 +88,12 @@
   .contacts {
     min-height: calc(100svh - 96px);
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 350px 1fr;
     background: var(--color-bg);
   }
 
   .contacts__sidebar {
-    padding: 1.5rem 1.25rem;
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;

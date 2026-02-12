@@ -106,22 +106,20 @@ export class DialogsRepository {
             },
 
             lastMessage: {
-              $let: {
-                vars: {
-                  msg: { $arrayElemAt: ['$lastMessage', 0] },
-                },
-                in: {
-                  id: { $toString: '$$msg._id' },
-                  text: { $ifNull: ['$$msg.text', ''] },
-                  createdAt: {
-                    $cond: [
-                      { $ifNull: ['$$msg.createdAt', false] },
-                      { $toString: '$$msg.createdAt' },
-                      null,
-                    ],
+              $cond: [
+                { $gt: [{ $size: '$lastMessage' }, 0] },
+                {
+                  $let: {
+                    vars: { msg: { $arrayElemAt: ['$lastMessage', 0] } },
+                    in: {
+                      id: { $toString: '$$msg._id' },
+                      text: '$$msg.text',
+                      createdAt: '$$msg.createdAt',
+                    },
                   },
                 },
-              },
+                null,
+              ],
             },
           },
         },

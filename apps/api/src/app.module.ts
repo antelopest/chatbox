@@ -6,6 +6,7 @@ import { UsersModule } from '@users/users.module';
 import { ChangelogModule } from '@changelog/changelog.module';
 import { AuthModule } from '@auth/auth.module';
 import { DialogsModule } from '@dialogs/dialogs.module';
+import { MessagesModule } from '@messages/messages.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DialogsModule } from '@dialogs/dialogs.module';
     UsersModule,
     AuthModule,
     DialogsModule,
+    MessagesModule,
     ChangelogModule,
   ],
   controllers: [],

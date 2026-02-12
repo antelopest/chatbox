@@ -1,1 +1,3 @@
-export * from './private-dialogs/private-dialogs.read-model';
+export * from './models';
+export * from './mappers';
+export * from './services';

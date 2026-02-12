@@ -4,6 +4,8 @@ import { Message, MessageSchema } from './infrastructure/schemas';
 import { MessagesController } from '@messages/api/messages/messages.controller';
 import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { MongoConnection } from '@infrastructure/mongo';
+import { MessagesService } from '@messages/application/services/messages/messages.service';
+import { MessagesRepository } from '@messages/infrastructure/repositories/messages/messages.repository';
 
 @Module({
   imports: [
@@ -14,5 +16,6 @@ import { MongoConnection } from '@infrastructure/mongo';
     ),
   ],
   controllers: [MessagesController],
+  providers: [MessagesService, MessagesRepository],
 })
 export class MessagesModule {}

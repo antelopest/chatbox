@@ -1,6 +1,5 @@
 import { CreateDialogCommand } from '@dialogs/application/commands';
-import { PrivateDialog } from '@dialogs/read-models';
-import { DialogsRepository } from '@dialogs/infrastructure/repositories';
+import { DialogsRepository } from '@dialogs/infrastructure/repositories/dialogs/dialogs.repository';
 import {
   BadRequestException,
   ConflictException,
@@ -36,11 +35,6 @@ export class DialogsService {
     const [participantIdA, participantIdB] = createDialogCommand.participants;
     await this.ensurePrivateDialogNotExists(participantIdA, participantIdB);
 
-    console.log(createDialogCommand);
     return this.dialogsRepository.createPrivateDialog(createDialogCommand);
-  }
-
-  findPrivateDialogs(userObjectId: Types.ObjectId): Promise<PrivateDialog[]> {
-    return this.dialogsRepository.findByParticipantId(userObjectId);
   }
 }

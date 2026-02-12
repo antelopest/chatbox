@@ -10,10 +10,10 @@ import { SendMessageSchema } from '@packages/validators';
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
-  @Post()
-  @UsePipes(new ZodValidationPipe(SendMessageSchema))
-  async sendMessage(
-    @Req() accessPayloadRequest: AccessPayloadRequest,
-    @Body() sendMessage: SendMessage,
-  ) {}
+  // @Post()
+  // @UsePipes(new ZodValidationPipe(SendMessageSchema))
+  // async sendMessage(
+  //   @Req() accessPayloadRequest: AccessPayloadRequest,
+  //   @Body() sendMessage: SendMessage,
+  // ) {}
 }
